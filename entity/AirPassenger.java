@@ -11,9 +11,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 
-import renewal.awesome_travel_backoffice.airPurchase.utiles.Sex;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -37,6 +37,5 @@ public class AirPassenger extends BasePassenger {
         super(name, number, email, birth, sex, nationality, passport_num, lastName, firstName, expire);
         this.airPurchase = airPurchase;
     }
-
 
 }

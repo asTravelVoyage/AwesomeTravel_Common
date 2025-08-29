@@ -10,8 +10,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
-import renewal.awesome_travel_backoffice.airPurchase.utiles.PurchaseStatus;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -29,12 +27,11 @@ public abstract class BasePurchase {
     @Column(nullable = false)
     protected PurchaseStatus purchaseStatus;
 
+    @Column(nullable = false)
+    protected Long price; // 결제금액
 
     @Column(nullable = false)
-    protected Long price; //결제금액
-
-    @Column(nullable = false)
-    protected Long member_id; //구매자
+    protected Long member_id; // 구매자
 
     @Column(nullable = false)
     protected String name;
@@ -46,12 +43,13 @@ public abstract class BasePurchase {
     protected String email;
 
     @Column(nullable = false)
-    protected LocalDateTime purchaseDate; //구매일
+    protected LocalDateTime purchaseDate; // 구매일
 
     @Column
-    protected LocalDateTime paymentDueDate; //결제기한
+    protected LocalDateTime paymentDueDate; // 결제기한
 
-    public BasePurchase(Long price, Long member_id, String name, String number, String email, LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
+    public BasePurchase(Long price, Long member_id, String name, String number, String email,
+            LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
         this.price = price;
         this.member_id = member_id;
         this.name = name;
@@ -59,6 +57,12 @@ public abstract class BasePurchase {
         this.email = email;
         this.purchaseDate = purchaseDate;
         this.paymentDueDate = paymentDueDate;
+    }
+
+    public enum PurchaseStatus {
+        HOLDING, // 결제 대기 상태
+        PAID, // 결제 완료
+        CANCELLED // 결제 실패 또는 시간 초과
     }
 
 }

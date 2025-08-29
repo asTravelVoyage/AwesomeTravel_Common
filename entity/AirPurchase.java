@@ -12,8 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.CascadeType;
 
-import renewal.awesome_travel_backoffice.airPurchase.utiles.PurchaseStatus;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -47,4 +45,5 @@ public class AirPurchase extends BasePurchase {
 
         this.purchaseStatus = newStatus;
     }
+
 }
