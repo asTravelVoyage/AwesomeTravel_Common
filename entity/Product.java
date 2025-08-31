@@ -13,8 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
-import renewal.awesome_travel_backoffice.config.AuditingFields;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;

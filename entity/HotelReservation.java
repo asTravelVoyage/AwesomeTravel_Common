@@ -11,9 +11,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-
-import renewal.awesome_travel_backoffice.config.AuditingFields;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

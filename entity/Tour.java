@@ -16,8 +16,6 @@ import jakarta.persistence.FetchType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import renewal.awesome_travel_backoffice.config.AuditingFields;
-
 import lombok.*;
 
 @Entity

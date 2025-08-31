@@ -22,8 +22,6 @@ import jakarta.persistence.CascadeType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import renewal.awesome_travel_backoffice.config.AuditingFields;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
