@@ -1,38 +1,26 @@
 package renewal.common.entity;
 
+import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDate;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import renewal.awesome_travel.user.utils.Provider;
+import renewal.awesome_travel.user.utils.Role;
+import renewal.awesome_travel.user.utils.Status;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
-import renewal.awesome_travel_backoffice.user.utils.Provider;
-import renewal.awesome_travel_backoffice.user.utils.Role;
-import renewal.awesome_travel_backoffice.user.utils.Status;
-
-import lombok.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 @DynamicInsert
 @DynamicUpdate
-@Table
+@Table(name = "users")
 public class User {
 
     @Id
@@ -92,14 +80,11 @@ public class User {
     private Boolean emailVerified;
     private Boolean marketingConsent;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Wait> waitList = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Comment> reviewComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id")
-    private List<Comment> comment = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "user")
-//    private List<AirPurchase> airPurchases = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<AirPurchase> airPurchases = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "user")
 //    private List<ProductPurchase> productPurchases = new ArrayList<>();
@@ -115,4 +100,5 @@ public class User {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
 }

@@ -1,23 +1,19 @@
 package renewal.common.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import renewal.awesome_travel.purchase.dto.requestDto.AirPassengerUpdateRequestDto;
+import renewal.awesome_travel.purchase.utiles.Sex;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Getter
 @NoArgsConstructor
-@Table
+@Table(name = "AirPassenger")
 public class AirPassenger extends BasePassenger {
 
     @ManyToOne
@@ -33,9 +29,37 @@ public class AirPassenger extends BasePassenger {
     )
     private Set<SpecialRequest> specialRequests = new HashSet<>(); //요구사항
 
-    public AirPassenger(AirPurchase airPurchase, String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality, String passport_num, String lastName, String firstName, LocalDate expire) {
+    public AirPassenger(AirPurchase airPurchase, String name, String number, String email, LocalDate birth, Sex sex, Country nationality, String passport_num, String lastName, String firstName, LocalDate expire) {
         super(name, number, email, birth, sex, nationality, passport_num, lastName, firstName, expire);
         this.airPurchase = airPurchase;
     }
+
+    // SpecialRequest 설정
+    public void addSpecialRequests(Set<SpecialRequest> specialRequests) {
+        if (specialRequests != null) {
+            this.specialRequests.addAll(specialRequests);
+        }
+    }
+
+    public void updateInfo(AirPassengerUpdateRequestDto dto, Country newCountry, Set<SpecialRequest> newRequests) {
+        // BasePassenger 필드 처리
+        if (dto.getName() != null) this.name = dto.getName();
+        if (dto.getNumber() != null) this.number = dto.getNumber();
+        if (dto.getEmail() != null) this.email = dto.getEmail();
+        if (dto.getBirth() != null) this.birth = dto.getBirth();
+        if (dto.getSex() != null) this.sex = dto.getSex();
+        if (newCountry != null) this.nationality = newCountry;
+        if (dto.getPassportNum() != null) this.passport_num = dto.getPassportNum();
+        if (dto.getLastName() != null) this.lastName = dto.getLastName();
+        if (dto.getFirstName() != null) this.firstName = dto.getFirstName();
+        if (dto.getExpire() != null) this.expire = dto.getExpire();
+
+        // AirPassenger 고유 필드 처리
+        if (newRequests != null) {
+            this.specialRequests.clear();
+            this.specialRequests.addAll(newRequests);
+        }
+    }
+
 
 }

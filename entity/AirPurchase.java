@@ -1,24 +1,19 @@
 package renewal.common.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import renewal.awesome_travel.air.entity.SeatClass;
+import renewal.awesome_travel.purchase.utiles.PurchaseStatus;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.CascadeType;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Getter
 @NoArgsConstructor
-@Table
+@Table(name = "AirPurchase")
 public class AirPurchase extends BasePurchase {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,7 +23,7 @@ public class AirPurchase extends BasePurchase {
     @OneToMany(mappedBy = "airPurchase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AirPassenger> airPassengers = new ArrayList<>();
 
-    public AirPurchase(SeatClass seatClass, Long price, Long member_id, String name, String number, String email, LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
+    public AirPurchase(SeatClass seatClass, Integer price, Long member_id, String name, String number, String email, LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
         super(price, member_id, name, number, email, purchaseDate, paymentDueDate);
         this.seatClass = seatClass;
 
@@ -45,5 +40,4 @@ public class AirPurchase extends BasePurchase {
 
         this.purchaseStatus = newStatus;
     }
-
 }

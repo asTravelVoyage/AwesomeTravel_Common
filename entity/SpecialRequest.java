@@ -1,19 +1,13 @@
 package renewal.common.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@Table
+@Table(name = "specialRequest")
 public class SpecialRequest {
 
     @Id
@@ -29,10 +23,5 @@ public class SpecialRequest {
     public SpecialRequest(String requestType, String description) {
         this.requestType = requestType;
         this.description = description;
-    }
-
-    public void update(String requestType, String description) {
-        if (requestType != null) this.requestType = requestType;
-        if (description != null) this.description = description;
     }
 }
