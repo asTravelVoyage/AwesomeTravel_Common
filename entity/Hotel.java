@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
@@ -19,15 +18,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.ElementCollection;
+
 import lombok.Getter;
-import lombok.Setter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table
 @Getter
-@Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Hotel extends AuditingFields {
 
     @Id

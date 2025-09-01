@@ -3,8 +3,6 @@ package renewal.common.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import renewal.awesome_travel.air.entity.SeatClass;
-import renewal.awesome_travel.purchase.utiles.PurchaseStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +11,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "AirPurchase")
 public class AirPurchase extends BasePurchase {
 
     @ManyToOne(fetch = FetchType.LAZY)

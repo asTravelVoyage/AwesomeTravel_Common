@@ -13,7 +13,6 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "AirPassenger")
 public class AirPassenger extends BasePassenger {
 
     @ManyToOne
@@ -29,7 +28,7 @@ public class AirPassenger extends BasePassenger {
     )
     private Set<SpecialRequest> specialRequests = new HashSet<>(); //요구사항
 
-    public AirPassenger(AirPurchase airPurchase, String name, String number, String email, LocalDate birth, Sex sex, Country nationality, String passport_num, String lastName, String firstName, LocalDate expire) {
+    public AirPassenger(AirPurchase airPurchase, String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality, String passport_num, String lastName, String firstName, LocalDate expire) {
         super(name, number, email, birth, sex, nationality, passport_num, lastName, firstName, expire);
         this.airPurchase = airPurchase;
     }
@@ -41,7 +40,7 @@ public class AirPassenger extends BasePassenger {
         }
     }
 
-    public void updateInfo(AirPassengerUpdateRequestDto dto, Country newCountry, Set<SpecialRequest> newRequests) {
+    public void updateInfo(AirPassengerUpdateRequestDto dto, CountryCode newCountry, Set<SpecialRequest> newRequests) {
         // BasePassenger 필드 처리
         if (dto.getName() != null) this.name = dto.getName();
         if (dto.getNumber() != null) this.number = dto.getNumber();

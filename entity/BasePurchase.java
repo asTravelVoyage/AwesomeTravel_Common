@@ -3,7 +3,6 @@ package renewal.common.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import renewal.awesome_travel.purchase.utiles.PurchaseStatus;
 
 import java.time.LocalDateTime;
 

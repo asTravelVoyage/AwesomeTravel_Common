@@ -6,10 +6,8 @@ import java.time.LocalTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class FlightItem {
 
     @JsonProperty("항공사")

@@ -3,15 +3,12 @@ package renewal.common.entity;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
-import renewal.awesome_travel_backoffice.notice.dto.request.NoticeRequestDto;
-import renewal.awesome_travel_backoffice.notice.utils.NoticeCategory;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table
 public class Notice extends AuditingFields {
 
     @Id
@@ -45,7 +41,6 @@ public class Notice extends AuditingFields {
     @Column(nullable = false)
     private NoticeCategory category;
 
-
     @Column
     private LocalDateTime startAt; // 공지 노출 시작 시간
 
@@ -55,10 +50,9 @@ public class Notice extends AuditingFields {
     @Column(nullable = false)
     private boolean isVisible = true;
 
-
     public Notice(String title, String content, Boolean fix, Integer priority,
-                  String imageUrl, NoticeCategory category,
-                  LocalDateTime startAt, LocalDateTime endAt) {
+            String imageUrl, NoticeCategory category,
+            LocalDateTime startAt, LocalDateTime endAt) {
         this.title = title;
         this.content = content;
         this.fix = fix;
@@ -69,32 +63,45 @@ public class Notice extends AuditingFields {
         this.endAt = endAt;
     }
 
-    public void update(NoticeRequestDto dto) {
-        this.title = dto.getTitle();
-        this.content = dto.getContent();
-        this.fix = dto.getFix();
-        this.priority = dto.getPriority();
-        this.imageUrl = dto.getImageUrl();
-        this.category = dto.getCategory();
-        this.startAt = dto.getStartAt();
-        this.endAt = dto.getEndAt();
+    @Getter
+    public enum NoticeCategory {
+        EVENT("이벤트"),
+        UPDATE("업데이트"),
+        SYSTEM("점검"),
+        GUIDE("안내");
+
+        private final String displayName;
+
+        NoticeCategory(String displayName) {
+            this.displayName = displayName;
+        }
     }
 
-    public void updatePartially(NoticeRequestDto dto) {
-        if (dto.getTitle() != null) this.title = dto.getTitle();
-        if (dto.getContent() != null) this.content = dto.getContent();
-        if (dto.getFix() != null) this.fix = dto.getFix();
-        if (dto.getPriority() != null) this.priority = dto.getPriority();
-        if (dto.getImageUrl() != null) this.imageUrl = dto.getImageUrl();
-        if (dto.getCategory() != null) this.category = dto.getCategory();
-        if (dto.getStartAt() != null) this.startAt = dto.getStartAt();
-        if (dto.getEndAt() != null) this.endAt = dto.getEndAt();
-    }
+    // ==> 백오피스 Service로 분리
+    // public void update(NoticeRequestDto dto) {
+    // this.title = dto.getTitle();
+    // this.content = dto.getContent();
+    // this.fix = dto.getFix();
+    // this.priority = dto.getPriority();
+    // this.imageUrl = dto.getImageUrl();
+    // this.category = dto.getCategory();
+    // this.startAt = dto.getStartAt();
+    // this.endAt = dto.getEndAt();
+    // }
 
+    // public void updatePartially(NoticeRequestDto dto) {
+    // if (dto.getTitle() != null) this.title = dto.getTitle();
+    // if (dto.getContent() != null) this.content = dto.getContent();
+    // if (dto.getFix() != null) this.fix = dto.getFix();
+    // if (dto.getPriority() != null) this.priority = dto.getPriority();
+    // if (dto.getImageUrl() != null) this.imageUrl = dto.getImageUrl();
+    // if (dto.getCategory() != null) this.category = dto.getCategory();
+    // if (dto.getStartAt() != null) this.startAt = dto.getStartAt();
+    // if (dto.getEndAt() != null) this.endAt = dto.getEndAt();
+    // }
 
-    public void setFix(Boolean fix) {
-        this.fix = fix;
-    }
+    // public void setFix(Boolean fix) {
+    // this.fix = fix;
+    // }
 
 }
-

@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
-import renewal.awesome_travel_backoffice.faq.utils.FaqCategory;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class Faq extends AuditingFields {
     private FaqCategory category;
 
     // 생성 메서드
-    public Faq (String question, String answer, FaqCategory category) {
+    public Faq(String question, String answer, FaqCategory category) {
         this.question = question;
         this.answer = answer;
         this.category = category;
@@ -36,5 +35,12 @@ public class Faq extends AuditingFields {
         this.answer = answer;
         this.category = category;
     }
-}
 
+    public enum FaqCategory {
+        MEMBER, // 회원
+        PAYMENT, // 결제
+        RESERVATION, // 예약
+        ETC // 기타
+    }
+
+}
