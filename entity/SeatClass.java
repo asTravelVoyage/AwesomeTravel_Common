@@ -59,6 +59,14 @@ public class SeatClass {
         }
     }
 
+    public void decreaseAvailableSeats(int reserveCount) {
+        availableSeats -= reserveCount;
+    }
+
+    public void increaseAvailableSeats(int cancelCount) {
+        availableSeats += cancelCount;
+    }
+
     public enum SeatClassType {
         ECONOMY,
         PREMIUMECONOMY,
