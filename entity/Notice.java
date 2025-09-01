@@ -104,4 +104,29 @@ public class Notice extends AuditingFields {
     // this.fix = fix;
     // }
 
+    public void updateTitle(String newTitle){
+        title = newTitle;
+    }
+    public void updateContent(String newContent){
+        content = newContent;
+    }
+    public void updateFix(Boolean newFix){
+        fix = newFix;
+    }
+    public void updatePriority(Integer newPriority){
+        priority = newPriority;
+    }
+    public void updateImageUrl(String newImageUrl){
+        imageUrl = newImageUrl;
+    }
+    public void updateCategory(NoticeCategory newCategory){
+        category = newCategory;
+    }
+    public void updateStartAt(LocalDateTime newStartAt){
+        startAt = newStartAt;
+    }
+    public void updateEndAt(LocalDateTime newEndAt){
+        endAt = newEndAt;
+    }
+
 }
