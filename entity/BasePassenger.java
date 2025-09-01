@@ -38,7 +38,7 @@ public abstract class BasePassenger {
 
     // 국제선
     @Column(nullable = true)
-    protected String passport_num; // 여권번호
+    protected String passportNum; // 여권번호
 
     @Column(nullable = true)
     protected String lastName; // 영문 성
@@ -50,21 +50,48 @@ public abstract class BasePassenger {
     protected LocalDate expire; // 만료일
 
     public BasePassenger(String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality,
-            String passport_num, String lastName, String firstName, LocalDate expire) {
+            String passportNum, String lastName, String firstName, LocalDate expire) {
         this.name = name;
         this.number = number;
         this.email = email;
         this.birth = birth;
         this.sex = sex;
         this.nationality = nationality;
-        this.passport_num = passport_num;
+        this.passportNum = passportNum;
         this.lastName = lastName;
         this.firstName = firstName;
         this.expire = expire;
     }
 
-    public void setNationality(CountryCode nationality) {
-        this.nationality = nationality;
+    public void updateName(String newName){
+        name = newName;
+    }
+    public void updateNumber(String newNumber){
+        number = newNumber;
+    }
+    public void updateEmail(String newEmail){
+        email = newEmail;
+    }
+    public void updateBirth(LocalDate newBirth){
+        birth = newBirth;
+    }
+    public void updateSex(Sex newSex){
+        sex = newSex;
+    }
+    public void updateNationality(CountryCode newCountryCode){
+        nationality = newCountryCode;
+    }
+    public void updatePassportNum(String newPassportNum){
+        passportNum = newPassportNum;
+    }
+    public void updateLastName(String newLastName){
+        lastName = newLastName;
+    }
+    public void updateFirstName(String newFirstName){
+        firstName = newFirstName;
+    }
+    public void updateExpire(LocalDate newExpire){
+        expire = newExpire;
     }
 
     public enum Sex {

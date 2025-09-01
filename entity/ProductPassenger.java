@@ -31,8 +31,8 @@ public class ProductPassenger extends BasePassenger{
     )
     private Set<SpecialRequest> specialRequests = new HashSet<>(); //요구사항
 
-    public ProductPassenger(ProductPurchase productPurchase, String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality, String passport_num, String lastName, String firstName, LocalDate expire) {
-        super(name, number, email, birth, sex, nationality, passport_num, lastName, firstName, expire);
+    public ProductPassenger(ProductPurchase productPurchase, String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality, String passportNum, String lastName, String firstName, LocalDate expire) {
+        super(name, number, email, birth, sex, nationality, passportNum, lastName, firstName, expire);
         this.productPurchase = productPurchase;
     }
 
