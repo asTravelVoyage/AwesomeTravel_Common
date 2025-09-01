@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import renewal.awesome_travel.purchase.dto.requestDto.AirPassengerUpdateRequestDto;
-import renewal.awesome_travel.purchase.utiles.Sex;
 
 import java.time.LocalDate;
 import java.util.HashSet;

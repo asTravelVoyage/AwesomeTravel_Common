@@ -3,7 +3,6 @@ package renewal.common.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import renewal.awesome_travel.purchase.utiles.Sex;
 
 import java.time.LocalDate;
 
@@ -66,6 +65,11 @@ public abstract class BasePassenger {
 
     public void setNationality(CountryCode nationality) {
         this.nationality = nationality;
+    }
+
+    public enum Sex {
+        male,
+        female
     }
 
 }

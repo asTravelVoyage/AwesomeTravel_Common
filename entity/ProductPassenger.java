@@ -10,8 +10,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 
-import renewal.awesome_travel.purchase.utiles.Sex;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
