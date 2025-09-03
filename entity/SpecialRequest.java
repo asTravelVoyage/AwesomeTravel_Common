@@ -7,10 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.AllArgsConstructor;
 
 @Entity
 @Getter

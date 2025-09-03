@@ -50,7 +50,7 @@ public class HotelReservation extends AuditingFields {
 
     @Enumerated(EnumType.STRING)
     @NonNull
-    private HotelReservationStatus hotelReservationStatus;
+    private HotelReservationStatus status;
 
     public enum HotelReservationStatus {
         BOOKED,

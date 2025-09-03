@@ -43,7 +43,7 @@ public class AirReservation extends AuditingFields {
 
     @Enumerated(EnumType.STRING)
     @NonNull
-    private AirReservationStatus airReservationStatus;
+    private AirReservationStatus status;
 
     public enum AirReservationStatus {
         BOOKED,

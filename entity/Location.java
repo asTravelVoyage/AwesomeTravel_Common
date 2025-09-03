@@ -12,10 +12,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Location {
 
@@ -33,9 +35,6 @@ public class Location {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private LocationType locationType;
-    public void updateLocationType(LocationType newLocationType){
-        locationType = newLocationType;
-    }
 
     private String description;
     private String city;

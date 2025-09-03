@@ -18,10 +18,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderColumn;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Schedule{
     
@@ -29,10 +31,6 @@ public class Schedule{
     @JoinColumn(name = "tour_id", nullable = false)
     private Tour tour;
 
-    public void updateTour(Tour newTour){
-        tour = newTour;
-    }
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
