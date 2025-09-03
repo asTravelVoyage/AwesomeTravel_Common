@@ -16,10 +16,12 @@ import jakarta.persistence.FetchType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Tour extends AuditingFields{
 
@@ -47,7 +49,14 @@ public class Tour extends AuditingFields{
   // private List<AirReservation> airReservations = new ArrayList<>();
 
   private Long airPriceSum;
+  public void updateAirPriceSum(Long newAirPriceSum){
+    airPriceSum = newAirPriceSum;
+  }
+
   private Long hotelPriceSum;
+  public void updateHotelPriceSum(Long newHotelPriceSum){
+    hotelPriceSum = newHotelPriceSum;
+  }
 
   // 패키지 상품과 연결된 경우 패키지 ID
   private Long productId;

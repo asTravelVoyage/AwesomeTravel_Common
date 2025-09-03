@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,10 +14,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Product extends AuditingFields {
 
@@ -54,7 +57,10 @@ public class Product extends AuditingFields {
 
     // private Long[] stars = new Long[]{0L,0L,0L,0L,0L};
 
+    @Embeddable
     @Getter
+    @Setter
+    @NoArgsConstructor
     public static class Info {
         private String title; // 제목 (굵게)
         private String content; // 내용

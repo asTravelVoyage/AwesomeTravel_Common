@@ -8,13 +8,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class AirReservation extends AuditingFields {
 
     @Id
@@ -38,9 +43,9 @@ public class AirReservation extends AuditingFields {
 
     @Enumerated(EnumType.STRING)
     @NonNull
-    private Status status;
+    private AirReservationStatus airReservationStatus;
 
-    public enum Status {
+    public enum AirReservationStatus {
         BOOKED,
         CANCELLED,
         COMPLETED

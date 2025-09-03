@@ -22,6 +22,9 @@ public class Location {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
+    public void updateSchedule (Schedule newSchedule){
+        schedule = newSchedule;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +32,11 @@ public class Location {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Type locationType;
+    private LocationType locationType;
+    public void updateLocationType(LocationType newLocationType){
+        locationType = newLocationType;
+    }
+
     private String description;
     private String city;
     // @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -49,7 +56,7 @@ public class Location {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    private enum Type {
+    public enum LocationType {
         POINT,
         AIR,
         HOTEL

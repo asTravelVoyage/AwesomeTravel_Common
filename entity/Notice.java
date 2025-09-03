@@ -11,10 +11,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Notice extends AuditingFields {
 
@@ -77,6 +79,12 @@ public class Notice extends AuditingFields {
         }
     }
 
+    public enum SearchType {
+        TITLE,
+        CONTENT,
+        TITLE_CONTENT
+    }
+
     // ==> 백오피스 Service로 분리
     // public void update(NoticeRequestDto dto) {
     // this.title = dto.getTitle();
@@ -103,30 +111,5 @@ public class Notice extends AuditingFields {
     // public void setFix(Boolean fix) {
     // this.fix = fix;
     // }
-
-    public void updateTitle(String newTitle){
-        title = newTitle;
-    }
-    public void updateContent(String newContent){
-        content = newContent;
-    }
-    public void updateFix(Boolean newFix){
-        fix = newFix;
-    }
-    public void updatePriority(Integer newPriority){
-        priority = newPriority;
-    }
-    public void updateImageUrl(String newImageUrl){
-        imageUrl = newImageUrl;
-    }
-    public void updateCategory(NoticeCategory newCategory){
-        category = newCategory;
-    }
-    public void updateStartAt(LocalDateTime newStartAt){
-        startAt = newStartAt;
-    }
-    public void updateEndAt(LocalDateTime newEndAt){
-        endAt = newEndAt;
-    }
 
 }

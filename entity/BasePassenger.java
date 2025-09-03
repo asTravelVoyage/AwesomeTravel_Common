@@ -33,7 +33,7 @@ public abstract class BasePassenger {
     protected Sex sex; // 성별
 
     @ManyToOne
-    @JoinColumn(name = "nationality_code", referencedColumnName = "countryCode", nullable = false)
+    @JoinColumn(name = "nationality_code", referencedColumnName = "code", nullable = false)
     protected CountryCode nationality; // 국적 REPUBLIC OF KOREA
 
     // 국제선

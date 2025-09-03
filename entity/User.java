@@ -87,10 +87,10 @@ public class User extends AuditingFields{
     private Boolean emailVerified;
     private Boolean marketingConsent;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "writer")
     private List<Comment> reviewComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "member_id")
     private List<AirPurchase> airPurchases = new ArrayList<>();
 
     // @OneToMany(mappedBy = "user")
@@ -107,15 +107,15 @@ public class User extends AuditingFields{
     //     this.updatedAt = LocalDateTime.now();
     // }
 
-    private enum UserStatus {
+    public enum UserStatus {
         ACTIVE, WITHDRAWN, BANNED
     }
 
-    private enum UserRole {
+    public enum UserRole {
         USER, ADMIN
     }
 
-    private enum UserProvider {
+    public enum UserProvider {
         LOCAL, GOOGLE, NAVER, KAKAO
     }
 

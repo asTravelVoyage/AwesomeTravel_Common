@@ -22,10 +22,12 @@ import jakarta.persistence.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Air extends AuditingFields {
 

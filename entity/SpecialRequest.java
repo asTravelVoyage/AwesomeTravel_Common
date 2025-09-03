@@ -8,10 +8,14 @@ import jakarta.persistence.Column;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Setter
+@RequiredArgsConstructor
 public class SpecialRequest {
 
     @Id
@@ -24,8 +28,13 @@ public class SpecialRequest {
     @Column(nullable = true)
     private String description; //요청설명
 
-    public SpecialRequest(String requestType, String description) {
-        this.requestType = requestType;
-        this.description = description;
+    public SpecialRequest(String newRequestType, String newDescription) {
+        requestType = newRequestType;
+        description = newDescription;
+    }
+
+    public void update(String newRequestType, String newDescription) {
+        requestType = newRequestType;
+        description = newDescription;
     }
 }

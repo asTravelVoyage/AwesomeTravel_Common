@@ -28,6 +28,10 @@ public class Schedule{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tour_id", nullable = false)
     private Tour tour;
+
+    public void updateTour(Tour newTour){
+        tour = newTour;
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

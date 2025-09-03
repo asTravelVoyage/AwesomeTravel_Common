@@ -12,12 +12,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class HotelReservation extends AuditingFields {
 
     @Id
@@ -46,9 +50,9 @@ public class HotelReservation extends AuditingFields {
 
     @Enumerated(EnumType.STRING)
     @NonNull
-    private Status status;
+    private HotelReservationStatus hotelReservationStatus;
 
-    public enum Status {
+    public enum HotelReservationStatus {
         BOOKED,
         CANCELLED,
         COMPLETED
