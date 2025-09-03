@@ -28,8 +28,8 @@ public class Product extends AuditingFields {
     @Column
     private Long id;
     
-    @OneToOne
-    @JoinColumn(name = "tour_id") // Product 테이블에 tour_id FK 생성
+    @OneToOne(optional = false)
+    @JoinColumn(name = "tour_id")
     private Tour tour;
 
     private String title;

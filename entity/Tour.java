@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.OrderColumn;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
@@ -45,6 +46,10 @@ public class Tour extends AuditingFields{
   @OrderColumn
   private List<Schedule> schedules = new ArrayList<>();
   
+  // 패키지 상품과 연결된 경우
+  @OneToOne(mappedBy = "tour", fetch = FetchType.LAZY)
+  private Product product;
+  
   // @OneToMany(mappedBy = "seat_class", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   // private List<AirReservation> airReservations = new ArrayList<>();
 
@@ -57,8 +62,5 @@ public class Tour extends AuditingFields{
   public void updateHotelPriceSum(Long newHotelPriceSum){
     hotelPriceSum = newHotelPriceSum;
   }
-
-  // 패키지 상품과 연결된 경우 패키지 ID
-  private Long productId;
 
 }
