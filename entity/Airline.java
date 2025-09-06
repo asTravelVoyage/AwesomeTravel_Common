@@ -20,6 +20,8 @@ public class Airline {
     private String nameEng;
 
     private boolean infantSeatsRequired;
+
+    private String iconUrl;
     
     // 이름만 있는 생성자
     public Airline(String airlineName){
