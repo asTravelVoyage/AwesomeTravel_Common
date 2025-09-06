@@ -23,8 +23,9 @@ public abstract class BasePurchase {
     @Column(nullable = false)
     protected Long price; // 결제금액
 
+    @ManyToOne
     @Column(nullable = false)
-    protected Long memberId; // 구매자
+    protected User user; // 구매자
 
     @Column(nullable = false)
     protected String name;
@@ -41,10 +42,10 @@ public abstract class BasePurchase {
     @Column
     protected LocalDateTime paymentDueDate; // 결제기한
 
-    public BasePurchase(Long price, Long memberId, String name, String number, String email,
+    public BasePurchase(Long price, User user, String name, String number, String email,
             LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
         this.price = price;
-        this.memberId = memberId;
+        this.user = user;
         this.name = name;
         this.number = number;
         this.email = email;

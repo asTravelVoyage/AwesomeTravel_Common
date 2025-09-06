@@ -14,14 +14,14 @@ import java.util.List;
 public class AirPurchase extends BasePurchase {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seat_class_id", nullable = false)
+    @JoinColumn(nullable = false)
     private SeatClass seatClass;
 
     @OneToMany(mappedBy = "airPurchase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AirPassenger> airPassengers = new ArrayList<>();
 
-    public AirPurchase(SeatClass seatClass, Long price, Long memberId, String name, String number, String email, LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
-        super(price, memberId, name, number, email, purchaseDate, paymentDueDate);
+    public AirPurchase(SeatClass seatClass, Long price, User user, String name, String number, String email, LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
+        super(price, user, name, number, email, purchaseDate, paymentDueDate);
         this.seatClass = seatClass;
 
     }

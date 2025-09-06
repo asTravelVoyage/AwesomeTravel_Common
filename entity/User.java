@@ -95,7 +95,7 @@ public class User extends AuditingFields{
     @Builder.Default
     private List<Comment> reviewComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "memberId")
+    @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<AirPurchase> airPurchases = new ArrayList<>();
 
