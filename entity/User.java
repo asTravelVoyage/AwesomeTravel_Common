@@ -17,15 +17,18 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-// @Builder
+@Builder
 @DynamicInsert
 @DynamicUpdate
 public class User extends AuditingFields{
@@ -62,6 +65,7 @@ public class User extends AuditingFields{
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
+    @Builder.Default
     private UserStatus status = UserStatus.ACTIVE; // ACTIVE, WITHDRAWN, BANNED
 
     private LocalDateTime createdAt;
@@ -88,9 +92,11 @@ public class User extends AuditingFields{
     private Boolean marketingConsent;
 
     @OneToMany(mappedBy = "writer")
+    @Builder.Default
     private List<Comment> reviewComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_id")
+    @OneToMany(mappedBy = "memberId")
+    @Builder.Default
     private List<AirPurchase> airPurchases = new ArrayList<>();
 
     // @OneToMany(mappedBy = "user")
