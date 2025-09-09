@@ -24,7 +24,7 @@ public abstract class BasePurchase {
     protected Long price; // 결제금액
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name = "user_id")
     protected User user; // 구매자
 
     @Column(nullable = false)
