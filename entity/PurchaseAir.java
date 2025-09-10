@@ -11,16 +11,16 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-public class AirPurchase extends BasePurchase {
+public class PurchaseAir extends PurchaseBase {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private SeatClass seatClass;
 
     @OneToMany(mappedBy = "airPurchase", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AirPassenger> airPassengers = new ArrayList<>();
+    private List<PassengerAir> airPassengers = new ArrayList<>();
 
-    public AirPurchase(SeatClass seatClass, Long price, User user, String name, String number, String email, LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
+    public PurchaseAir(SeatClass seatClass, Long price, User user, String name, String number, String email, LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
         super(price, user, name, number, email, purchaseDate, paymentDueDate);
         this.seatClass = seatClass;
 

@@ -97,7 +97,7 @@ public class User extends AuditingFields{
 
     @OneToMany(mappedBy = "user")
     @Builder.Default
-    private List<AirPurchase> airPurchases = new ArrayList<>();
+    private List<PurchaseAir> airPurchases = new ArrayList<>();
 
     // @OneToMany(mappedBy = "user")
     // private List<ProductPurchase> productPurchases = new ArrayList<>();

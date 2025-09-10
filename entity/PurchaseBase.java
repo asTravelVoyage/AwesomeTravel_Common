@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @MappedSuperclass
-public abstract class BasePurchase {
+public abstract class PurchaseBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public abstract class BasePurchase {
     @Column
     protected LocalDateTime paymentDueDate; // 결제기한
 
-    public BasePurchase(Long price, User user, String name, String number, String email,
+    public PurchaseBase(Long price, User user, String name, String number, String email,
             LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
         this.price = price;
         this.user = user;

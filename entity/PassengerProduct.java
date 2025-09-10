@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class ProductPassenger extends BasePassenger{
+public class PassengerProduct extends PassengerBase{
 
     @ManyToOne
     @JoinColumn(name = "product_purchase_id", nullable = false)
-    private ProductPurchase productPurchase;
+    private PurchaseProduct productPurchase;
 
     //요구사항(객실, 투어옵션, 여행자보험, 룸메이트 등등) 추후 enum이나 엔티티로 변경
     @ManyToMany
@@ -31,7 +31,7 @@ public class ProductPassenger extends BasePassenger{
     )
     private Set<SpecialRequest> specialRequests = new HashSet<>(); //요구사항
 
-    public ProductPassenger(ProductPurchase productPurchase, String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality, String passportNum, String lastName, String firstName, LocalDate expire) {
+    public PassengerProduct(PurchaseProduct productPurchase, String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality, String passportNum, String lastName, String firstName, LocalDate expire) {
         super(name, number, email, birth, sex, nationality, passportNum, lastName, firstName, expire);
         this.productPurchase = productPurchase;
     }

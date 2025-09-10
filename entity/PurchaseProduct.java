@@ -16,13 +16,13 @@ import lombok.AllArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductPurchase extends BasePurchase {
+public class PurchaseProduct extends PurchaseBase {
 
     @ManyToOne
     @JoinColumn(name = "purchase_target_id", nullable = false)
     private Product product; //구매상품
 
     @OneToMany(mappedBy = "productPurchase", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductPassenger> productPassengers = new ArrayList<>();
+    private List<PassengerProduct> productPassengers = new ArrayList<>();
 
 }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @MappedSuperclass
-public abstract class BasePassenger {
+public abstract class PassengerBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +49,7 @@ public abstract class BasePassenger {
     @Column(nullable = true)
     protected LocalDate expire; // 만료일
 
-    public BasePassenger(String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality,
+    public PassengerBase(String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality,
             String passportNum, String lastName, String firstName, LocalDate expire) {
         this.name = name;
         this.number = number;

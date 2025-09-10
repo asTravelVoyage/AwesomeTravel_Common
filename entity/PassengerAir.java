@@ -11,11 +11,11 @@ import java.util.Set;
 @Entity
 @Getter
 @NoArgsConstructor
-public class AirPassenger extends BasePassenger {
+public class PassengerAir extends PassengerBase {
 
     @ManyToOne
     @JoinColumn(name = "air_purchase_id", nullable = false)
-    private AirPurchase airPurchase;
+    private PurchaseAir airPurchase;
 
     //요구사항(기내식, 좌석, 수하물 등등) 추후 enum이나 엔티티로 변경
     @ManyToMany
@@ -26,7 +26,7 @@ public class AirPassenger extends BasePassenger {
     )
     private Set<SpecialRequest> specialRequests = new HashSet<>(); //요구사항
 
-    public AirPassenger(AirPurchase airPurchase, String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality, String passportNum, String lastName, String firstName, LocalDate expire) {
+    public PassengerAir(PurchaseAir airPurchase, String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality, String passportNum, String lastName, String firstName, LocalDate expire) {
         super(name, number, email, birth, sex, nationality, passportNum, lastName, firstName, expire);
         this.airPurchase = airPurchase;
     }
