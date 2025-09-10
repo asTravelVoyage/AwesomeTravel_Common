@@ -38,7 +38,7 @@ public class PassengerAir extends PassengerBase {
         }
     }
 
-    public void updateAirPurchase(){
+    public void updatePurchaseAir(){
 
     }
 

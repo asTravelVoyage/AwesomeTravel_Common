@@ -100,7 +100,7 @@ public class User extends AuditingFields{
     private List<PurchaseAir> airPurchases = new ArrayList<>();
 
     // @OneToMany(mappedBy = "user")
-    // private List<ProductPurchase> productPurchases = new ArrayList<>();
+    // private List<PurchaseProduct> productPurchases = new ArrayList<>();
 
     // @PrePersist
     // protected void onCreate() {
