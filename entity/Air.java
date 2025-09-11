@@ -66,6 +66,9 @@ public class Air extends AuditingFields {
     private LocalTime arriveTime;
 
     @Column(nullable = false)
+    private Long flightDuration;
+
+    @Column(nullable = false)
     private Integer stopovers = 0; // 경유 횟수 (0 = 직항, 1 이상 = 경유)
 
     @ElementCollection
