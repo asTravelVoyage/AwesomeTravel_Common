@@ -93,7 +93,7 @@ public class User extends AuditingFields{
 
     @OneToMany(mappedBy = "writer")
     @Builder.Default
-    private List<Comment> reviewComments = new ArrayList<>();
+    private List<Review> reviewComments = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     @Builder.Default
