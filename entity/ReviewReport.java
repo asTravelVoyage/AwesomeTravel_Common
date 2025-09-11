@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = { "user_id", "comment_id" })
 })
-public class CommentReport {
+public class ReviewReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +36,7 @@ public class CommentReport {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id", nullable = false)
-    private Comment comment;
+    private Review comment;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -44,8 +44,8 @@ public class CommentReport {
 
     private LocalDateTime reportedAt;
 
-    public static CommentReport create(User reporter, Comment comment, ReportReason reason) {
-        CommentReport report = new CommentReport();
+    public static ReviewReport create(User reporter, Review comment, ReportReason reason) {
+        ReviewReport report = new ReviewReport();
         report.reporter = reporter;
         report.comment = comment;
         report.reason = reason;

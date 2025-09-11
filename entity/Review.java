@@ -1,22 +1,64 @@
 package renewal.common.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Review {
 
-    @Id
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long user_id;
-    private String name;
 
-    private LocalDate date;
-    private Integer star;
-    private String review;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User writer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;
+
+    @Column(nullable = false)
+    private int rating; // ⭐ 1~5점
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<ReviewReport> reports = new ArrayList<>();
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    public static Review create(User writer, Product product, String content, int rating) {
+        Review comment = new Review();
+        comment.writer = writer;
+        comment.product = product;
+        comment.content = content;
+        comment.rating = rating;
+        comment.createdAt = LocalDateTime.now();
+        return comment;
+    }
+
+    public void update(String content, int rating) {
+        this.content = content;
+        this.rating = rating;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
