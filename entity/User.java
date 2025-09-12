@@ -123,7 +123,7 @@ public class User extends AuditingFields{
     }
 
     public enum UserProvider {
-        LOCAL, GOOGLE, NAVER, KAKAO
+        LOCAL, GOOGLE, NAVER
     }
 
 }
