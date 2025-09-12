@@ -13,6 +13,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -24,6 +26,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -68,8 +71,6 @@ public class User extends AuditingFields{
     @Builder.Default
     private UserStatus status = UserStatus.ACTIVE; // ACTIVE, WITHDRAWN, BANNED
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private LocalDateTime lastLoginAt;
 
     // 여권 정보 (nullable)

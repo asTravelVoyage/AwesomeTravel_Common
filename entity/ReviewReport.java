@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "user_id", "comment_id" })
+        @UniqueConstraint(columnNames = { "user_id", "review_id" })
 })
 public class ReviewReport {
 
@@ -35,8 +35,8 @@ public class ReviewReport {
     private User reporter;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id", nullable = false)
-    private Review comment;
+    @JoinColumn(name = "review_id", nullable = false)
+    private Review review;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -44,10 +44,10 @@ public class ReviewReport {
 
     private LocalDateTime reportedAt;
 
-    public static ReviewReport create(User reporter, Review comment, ReportReason reason) {
+    public static ReviewReport create(User reporter, Review review, ReportReason reason) {
         ReviewReport report = new ReviewReport();
         report.reporter = reporter;
-        report.comment = comment;
+        report.review = review;
         report.reason = reason;
         report.reportedAt = LocalDateTime.now();
         return report;
