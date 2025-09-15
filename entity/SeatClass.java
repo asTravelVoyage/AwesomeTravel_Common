@@ -32,20 +32,16 @@ public class SeatClass {
     private Air air;
     @Enumerated(EnumType.STRING) // Enum을 DB에 문자열로 저장
     private SeatClassType classType; // 좌석 등급
-    private Long price; // 해당 등급의 가격
+
+    private Long priceAdult; // 해당 등급의 가격
+    private Long priceYouth; // 해당 등급의 청소년 가격
+    private Long priceInfant; // 해당 등급의 영유아 가격
+    
     private Long maxSeats; // 해당 등급의 최대 좌석 수
     private Long availableSeats; // 잔여 좌석 수
 
     @OneToMany(mappedBy = "seatClass", cascade = CascadeType.ALL)
     private List<AirReservation> airReservations = new ArrayList<>();
-
-    public SeatClass(Air air, SeatClassType classType, long price, long maxSeats, long availableSeats) {
-        this.air = air;
-        this.classType = classType;
-        this.price = price;
-        this.maxSeats = maxSeats;
-        this.availableSeats = availableSeats;
-    }
 
     public void reserveSeats(Long requiredPersons) throws Exception {
         if (availableSeats >= requiredPersons) {
