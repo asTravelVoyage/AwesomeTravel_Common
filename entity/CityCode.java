@@ -4,22 +4,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 public class CityCode {
 
     @Id
-    private String airport_code;
-    private String airport_eng;
-    private String city_code;
-    private String city_eng;
-    private Long utc_offset_mins;
-    private String country_code;
-    private String country_eng;
-    private String country_kor;
-    private String sub_eng;
-    private String sub_kor;
+    private String airportCode;
+    private String airportEng;
+    private String cityCode;
+    private String cityEng;
+    private Long utcOffsetMins;
+    private String countrycode;
+    private String countryEng;
+    private String countryKor;
+    private String subEng;
+    private String subKor;
     private String region;
 
 }
