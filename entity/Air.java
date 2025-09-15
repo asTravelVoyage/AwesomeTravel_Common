@@ -72,7 +72,7 @@ public class Air extends AuditingFields {
     private Integer stopovers = 0; // 경유 횟수 (0 = 직항, 1 이상 = 경유)
 
     @ElementCollection
-    private List<String> stopoverList; // 경유지 없으면 null
+    private List<StopOver> stopoverList; // 경유지 없으면 null
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -108,6 +108,13 @@ public class Air extends AuditingFields {
         }
         this.seatClasses = seatClasses;
         return this;
+    }
+
+    @Getter
+    @Setter
+    public static class StopOver {
+        private CityCode stopAirportCode;
+        private Long stopDurationMin;
     }
 
     public enum AirStatus {
