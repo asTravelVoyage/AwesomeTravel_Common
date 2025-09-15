@@ -4943,30 +4943,42 @@ VALUES
 (19, 'LH202', 'LH', 'FRA', '13:15', '2025-07-09', 'PEK', '05:45', '2025-07-10', 1, 'HIDDEN', 'STOP_OVER', '2025-07-01 10:30:00', 'admin', '2025-07-01 10:30:00', 'admin', 750),
 (20, 'JL212', 'JL', 'HND', '10:05', '2025-07-19', 'LHR', '15:20', '2025-07-20', 0, 'ACTIVE', 'DIRECT', '2025-07-02 10:35:00', 'admin', '2025-07-02 10:35:00', 'admin', 855);
 
--- ====== stopoverList ======
-INSERT IGNORE INTO air_stopover_list (air_id, stopover_list) VALUES
--- Flight 3 (air_id = 3, stopovers = 1)
-  (3, 'MDW'),
--- Flight 4 (air_id = 4, stopovers = 2)
-  (4, 'SIN'),
-  (4, 'MEL'),
--- Flight 6 (air_id = 6, stopovers = 1)
-  (6, 'IST'),
--- Flight 8 (air_id = 8, stopovers = 1)
-  (8, 'DXB'),
--- Flight 10 (air_id = 10, stopovers = 1)
-  (10, 'ORD'),
--- Flight 12 (air_id = 12, stopovers = 1)
-  (12, 'LHR'),
--- Flight 13 (air_id = 13, stopovers = 2)
-  (13, 'HNL'),
-  (13, 'GDL'),
--- Flight 15 (air_id = 15, stopovers = 1)
-  (15, 'YYZ'),
--- Flight 17 (air_id = 17, stopovers = 1)
-  (17, 'DXB'),
--- Flight 19 (air_id = 19, stopovers = 1)
-  (19, 'IST');
+-- ====== stopoverList (샘플) ======
+INSERT IGNORE INTO air_stopover_list
+    (air_id, arrive_time, arrive_airport_code, stop_duration_min, depart_time)
+VALUES
+-- Flight 3 : MDW  (체류 90분 예시)
+  (3,  '2025-09-15 08:00:00', 'MDW', 90, '2025-09-15 09:30:00'),
+
+-- Flight 4 : SIN, MEL
+  (4,  '2025-09-16 10:00:00', 'SIN', 120, '2025-09-16 12:00:00'),
+  (4,  '2025-09-16 18:00:00', 'MEL',  60, '2025-09-16 19:00:00'),
+
+-- Flight 6 : IST
+  (6,  '2025-09-17 14:00:00', 'IST',  75, '2025-09-17 15:15:00'),
+
+-- Flight 8 : DXB
+  (8,  '2025-09-18 11:00:00', 'DXB',  90, '2025-09-18 12:30:00'),
+
+-- Flight 10 : ORD
+  (10, '2025-09-19 09:00:00', 'ORD', 120, '2025-09-19 11:00:00'),
+
+-- Flight 12 : LHR
+  (12, '2025-09-20 07:00:00', 'LHR',  80, '2025-09-20 08:20:00'),
+
+-- Flight 13 : HNL, GDL
+  (13, '2025-09-21 06:00:00', 'HNL',  60, '2025-09-21 07:00:00'),
+  (13, '2025-09-21 13:00:00', 'GDL',  90, '2025-09-21 14:30:00'),
+
+-- Flight 15 : YYZ
+  (15, '2025-09-22 15:00:00', 'YYZ',  70, '2025-09-22 16:10:00'),
+
+-- Flight 17 : DXB
+  (17, '2025-09-23 05:00:00', 'DXB',  90, '2025-09-23 06:30:00'),
+
+-- Flight 19 : IST
+  (19, '2025-09-24 20:00:00', 'IST',  80, '2025-09-24 21:20:00');
+
 
 INSERT IGNORE INTO seat_class (id, air_id, class_type, price, max_seats, available_seats) 
 VALUES 

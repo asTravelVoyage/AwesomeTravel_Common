@@ -17,7 +17,7 @@ public class CityCode {
     private String cityCode;
     private String cityEng;
     private Long utcOffsetMins;
-    private String countrycode;
+    private String countryCode;
     private String countryEng;
     private String countryKor;
     private String subEng;

@@ -1,6 +1,7 @@
 package renewal.common.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.OneToMany;
@@ -112,9 +114,12 @@ public class Air extends AuditingFields {
 
     @Getter
     @Setter
+    @Embeddable
     public static class StopOver {
-        private CityCode stopAirportCode;
+        private LocalDateTime arriveTime;
+        private String arriveAirportCode; // CityCode.airportCode
         private Long stopDurationMin;
+        private LocalDateTime departTime;
     }
 
     public enum AirStatus {
