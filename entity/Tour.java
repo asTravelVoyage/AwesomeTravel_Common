@@ -32,15 +32,14 @@ public class Tour extends AuditingFields{
   private String company;
   private String name;
   private String country;
-  private Long count;
+  private Long maximumCapacity; // 최대인원[명]
+  private Long minimumCapacity; // 최소출발[명] 
 
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate startDate;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate endDate;
-
-  private Long price;
 
   @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   @OrderColumn
@@ -53,12 +52,12 @@ public class Tour extends AuditingFields{
   // @OneToMany(mappedBy = "seat_class", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   // private List<AirReservation> airReservations = new ArrayList<>();
 
-  private Long airPriceSum;
-  public void updateAirPriceSum(Long newAirPriceSum){
-    airPriceSum = newAirPriceSum;
-  }
+  private Long priceAdult; // 성인 1인당 투어 가격
+  private Long priceYouth; // 성인 1인당 투어 가격
+  private Long priceInfant; // 성인 1인당 투어 가격
 
-  private Long hotelPriceSum;
+  private Long hotelPriceSum; // 1인당 숙소 가격 합
+
   public void updateHotelPriceSum(Long newHotelPriceSum){
     hotelPriceSum = newHotelPriceSum;
   }
