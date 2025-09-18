@@ -32,8 +32,8 @@ public class Tour extends AuditingFields{
   private String company;
   private String name;
   private String country;
-  private Long maximumCapacity; // 최대인원[명]
-  private Long minimumCapacity; // 최소출발[명] 
+  private Long maxCapacity; // 최대인원[명]
+  private Long minCapacity; // 최소출발[명] 
 
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate startDate;

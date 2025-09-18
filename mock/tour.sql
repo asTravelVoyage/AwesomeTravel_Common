@@ -1,5 +1,5 @@
 
-INSERT IGNORE INTO tour (id, company, name, country, maximum_capacity, minimum_capacity, start_date, end_date, price_adult, price_youth, price_infant, hotel_price_sum)
+INSERT IGNORE INTO tour (id, company, name, country, max_capacity, min_capacity, start_date, end_date, price_adult, price_youth, price_infant, hotel_price_sum)
 VALUES
 (1, 'GlobalTravel', 'Tour1', 'KR', 28, 5, '2025-08-01', '2025-08-05', 1010000, 510000, 110000, 0),
 (2, 'SkyTours', 'Tour2', 'US', 10, 5, '2025-08-02', '2025-08-06', 1020000, 510000, 110000, 0),
