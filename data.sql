@@ -1,5 +1,0 @@
--- SOURCE mock/air.sql;
--- SOURCE mock/city_code.sql;
--- SOURCE mock/hotel.sql;
--- SOURCE mock/product.sql;
--- SOURCE mock/tour.sql;
