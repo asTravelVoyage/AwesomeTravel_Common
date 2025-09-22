@@ -1,8 +1,9 @@
 package renewal.common.entity;
 
-import java.time.LocalDate;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,27 +46,31 @@ public class Air extends AuditingFields {
     @JoinColumn(name = "airline_code", nullable = false)
     private Airline airline;
 
-    @Column(nullable = false)
-    private String departAirport;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "depart_airport")
+    private CityCode departAirport;
+    private String departTerminal;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
-    private LocalDate departDate;
+    private LocalDateTime departDateTime;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @Column(nullable = false)
-    private LocalTime departTime;
+    // @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    // @Column(nullable = false)
+    // private LocalTime departTime;
 
-    @Column(nullable = false)
-    private String arriveAirport;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "arrive_airport")
+    private CityCode arriveAirport;
+    private String arriveTerminal;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
-    private LocalDate arriveDate;
+    private LocalDateTime arriveDateTime;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @Column(nullable = false)
-    private LocalTime arriveTime;
+    // @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    // @Column(nullable = false)
+    // private LocalTime arriveTime;
 
     @Column(nullable = false)
     private Long flightDuration;
@@ -74,7 +79,7 @@ public class Air extends AuditingFields {
     private Integer stopovers = 0; // 경유 횟수 (0 = 직항, 1 이상 = 경유)
 
     @ElementCollection
-    private List<StopOver> stopoverList; // 경유지 없으면 null
+    private List<FlightSegment> flightSegmentList;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -87,18 +92,18 @@ public class Air extends AuditingFields {
     @OneToMany(mappedBy = "air", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SeatClass> seatClasses = new ArrayList<>();
 
-    // 공공데이터용 생성자
-    public Air(String flightNumber, Airline airline, String departAirport, LocalDate departDate, LocalTime departTime,
-            String arriveAirport, LocalDate arriveDate, LocalTime arriveTime) {
-        this.flightNumber = flightNumber;
-        this.airline = airline;
-        this.departAirport = departAirport;
-        this.departDate = departDate;
-        this.departTime = departTime;
-        this.arriveAirport = arriveAirport;
-        this.arriveDate = arriveDate;
-        this.arriveTime = arriveTime;
-    }
+    // // 공공데이터용 생성자
+    // public Air(String flightNumber, Airline airline, CityCode departAirport, LocalDate departDate, LocalTime departTime,
+    //         CityCode arriveAirport, LocalDate arriveDate, LocalTime arriveTime) {
+    //     this.flightNumber = flightNumber;
+    //     this.airline = airline;
+    //     this.departAirport = departAirport;
+    //     this.departDate = departDate;
+    //     this.departTime = departTime;
+    //     this.arriveAirport = arriveAirport;
+    //     this.arriveDate = arriveDate;
+    //     this.arriveTime = arriveTime;
+    // }
 
     public Air updateAir(Integer stopovers, List<SeatClass> seatClasses) {
         this.status = AirStatus.ACTIVE;
@@ -112,14 +117,57 @@ public class Air extends AuditingFields {
         return this;
     }
 
+    @Embeddable
     @Getter
     @Setter
-    @Embeddable
-    public static class StopOver {
-        private LocalDateTime arriveTime;
-        private String arriveAirportCode; // CityCode.airportCode
-        private Long stopDurationMin;
-        private LocalDateTime departTime;
+    public static class FlightSegment {
+
+        private CityCode departAirport; // 출발공항
+        private String departTerminal; // 출발터미널
+        private LocalDateTime departDateTime; // 출발날짜시간
+
+        private Long flightDuration; // 비행시간 => (도착시간 - 출발시간 으로 계산?)
+
+        private CityCode arriveAirport; // 도착공항
+        private String arriveTerminal; // 도착터미널
+        private LocalDateTime arriveDateTime; // 도착날짜시간
+
+        private Long waitDuration = null; // 경유인 경우(=flightSegments 길이가 2 이상) 다음
+        // FlightSegment 전까지 대기시간
+        // => (전 도착시간 - 다음 출발시간 차이로 계산?)
+        
+        // public FlightSegment(){
+
+        // // ==== 비행시간 계산 ====
+        // // 1) 현지시간(LocalDateTime) + 공항 UTC 오프셋 → UTC 기준 Instant
+        // ZoneOffset departOffset = ZoneOffset.ofTotalSeconds(
+        //         (int) (departAirport.getUtcOffsetMins() * 60));
+        // ZoneOffset arriveOffset = ZoneOffset.ofTotalSeconds(
+        //         (int) (arriveAirport.getUtcOffsetMins() * 60));
+
+        // Instant departUtc = departDateTime.toInstant(departOffset);
+        // Instant arriveUtc = arriveDateTime.toInstant(arriveOffset);
+
+        // // 2) 두 Instant 차이를 분 단위로 계산
+        // this.flightDuration = Duration.between(departUtc, arriveUtc).toMinutes();
+
+        // }
+        // 별도의 계산 메서드
+        public void calculateFlightDuration() {
+            if (departAirport == null || arriveAirport == null ||
+                departDateTime == null || arriveDateTime == null) {
+                this.flightDuration = null;
+                return;
+            }
+
+            ZoneOffset departOffset = ZoneOffset.ofTotalSeconds((int) (departAirport.getUtcOffsetMins() * 60));
+            ZoneOffset arriveOffset = ZoneOffset.ofTotalSeconds((int) (arriveAirport.getUtcOffsetMins() * 60));
+
+            Instant departUtc = departDateTime.toInstant(departOffset);
+            Instant arriveUtc = arriveDateTime.toInstant(arriveOffset);
+
+            this.flightDuration = Duration.between(departUtc, arriveUtc).toMinutes();
+        }
     }
 
     public enum AirStatus {
