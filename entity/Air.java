@@ -1,9 +1,6 @@
 package renewal.common.entity;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +48,7 @@ public class Air extends AuditingFields {
     private CityCode departAirport;
     private String departTerminal;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(nullable = false)
     private LocalDateTime departDateTime;
 
@@ -64,7 +61,7 @@ public class Air extends AuditingFields {
     private CityCode arriveAirport;
     private String arriveTerminal;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(nullable = false)
     private LocalDateTime arriveDateTime;
 
@@ -79,7 +76,7 @@ public class Air extends AuditingFields {
     private Integer stopovers = 0; // 경유 횟수 (0 = 직항, 1 이상 = 경유)
 
     @ElementCollection
-    private List<FlightSegment> flightSegmentList;
+    private List<FlightSegment> flightSegments;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -93,12 +90,12 @@ public class Air extends AuditingFields {
     private List<SeatClass> seatClasses = new ArrayList<>();
 
     // // 공공데이터용 생성자
-    // public Air(String flightNumber, Airline airline, CityCode departAirport, LocalDate departDate, LocalTime departTime,
+    // public Air(String flightNumber, Airline airline, CityCode departAirport, LocalDate departDateTime, LocalTime departTime,
     //         CityCode arriveAirport, LocalDate arriveDate, LocalTime arriveTime) {
     //     this.flightNumber = flightNumber;
     //     this.airline = airline;
     //     this.departAirport = departAirport;
-    //     this.departDate = departDate;
+    //     this.departDateTime = departDateTime;
     //     this.departTime = departTime;
     //     this.arriveAirport = arriveAirport;
     //     this.arriveDate = arriveDate;
@@ -122,52 +119,26 @@ public class Air extends AuditingFields {
     @Setter
     public static class FlightSegment {
 
+        @ManyToOne
+        @JoinColumn(name = "dep_airport_code")
         private CityCode departAirport; // 출발공항
         private String departTerminal; // 출발터미널
+        @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
         private LocalDateTime departDateTime; // 출발날짜시간
 
         private Long flightDuration; // 비행시간 => (도착시간 - 출발시간 으로 계산?)
-
+        
+        @ManyToOne
+        @JoinColumn(name = "arr_airport_code")
         private CityCode arriveAirport; // 도착공항
+        // private String arriveAirport; // 도착공항
         private String arriveTerminal; // 도착터미널
+        @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
         private LocalDateTime arriveDateTime; // 도착날짜시간
 
-        private Long waitDuration = null; // 경유인 경우(=flightSegments 길이가 2 이상) 다음
-        // FlightSegment 전까지 대기시간
+        private Long waitDuration = null; // 경유인 경우(=flightSegments 길이가 2 이상) 
+        // 다음 FlightSegment 전까지 대기시간
         // => (전 도착시간 - 다음 출발시간 차이로 계산?)
-        
-        // public FlightSegment(){
-
-        // // ==== 비행시간 계산 ====
-        // // 1) 현지시간(LocalDateTime) + 공항 UTC 오프셋 → UTC 기준 Instant
-        // ZoneOffset departOffset = ZoneOffset.ofTotalSeconds(
-        //         (int) (departAirport.getUtcOffsetMins() * 60));
-        // ZoneOffset arriveOffset = ZoneOffset.ofTotalSeconds(
-        //         (int) (arriveAirport.getUtcOffsetMins() * 60));
-
-        // Instant departUtc = departDateTime.toInstant(departOffset);
-        // Instant arriveUtc = arriveDateTime.toInstant(arriveOffset);
-
-        // // 2) 두 Instant 차이를 분 단위로 계산
-        // this.flightDuration = Duration.between(departUtc, arriveUtc).toMinutes();
-
-        // }
-        // 별도의 계산 메서드
-        public void calculateFlightDuration() {
-            if (departAirport == null || arriveAirport == null ||
-                departDateTime == null || arriveDateTime == null) {
-                this.flightDuration = null;
-                return;
-            }
-
-            ZoneOffset departOffset = ZoneOffset.ofTotalSeconds((int) (departAirport.getUtcOffsetMins() * 60));
-            ZoneOffset arriveOffset = ZoneOffset.ofTotalSeconds((int) (arriveAirport.getUtcOffsetMins() * 60));
-
-            Instant departUtc = departDateTime.toInstant(departOffset);
-            Instant arriveUtc = arriveDateTime.toInstant(arriveOffset);
-
-            this.flightDuration = Duration.between(departUtc, arriveUtc).toMinutes();
-        }
     }
 
     public enum AirStatus {
