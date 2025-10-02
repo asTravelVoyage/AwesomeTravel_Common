@@ -9,8 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -20,10 +18,12 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.ElementCollection;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Hotel extends AuditingFields {
 
@@ -57,12 +57,12 @@ public class Hotel extends AuditingFields {
     private Set<Amenity> amenities = new HashSet<>();
 
     // 예약 목록
-    @OneToMany(fetch = FetchType.LAZY)
+    // @OneToMany(fetch = FetchType.LAZY)
     // @JoinTable(
     // name = "hotel_reservations",
     // joinColumns = @JoinColumn(name = "hotel_id")
     // )
-    private List<HotelReservation> hotelReservations = new ArrayList<>();
+    // private List<HotelReservation> hotelReservations = new ArrayList<>();
 
     public enum HotelType {
         HOTEL,
