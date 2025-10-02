@@ -1,10 +1,7 @@
 package renewal.common.entity;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -35,10 +32,10 @@ public class Schedule{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // private Long day; // 1일차, 2일차 ...
+    private Long day; // 0일차, 1일차, 2일차 ...
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    // @DateTimeFormat(pattern = "yyyy-MM-dd")
+    // private LocalDate date;
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @OrderColumn

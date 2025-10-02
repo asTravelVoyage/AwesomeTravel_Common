@@ -42,9 +42,9 @@ public class Location {
     // private LocalDate date;
 
     // ==============Type이 AIR면 사용할 필드===============
-    @ManyToOne
-    @JoinColumn(name = "seatClass_id")
-    private SeatClass seatClass;
+    // @ManyToOne
+    // @JoinColumn(name = "seatClass_id")
+    // private SeatClass seatClass;
     private String departAirport;
     private String arriveAirport;
     // ==============Type이 POINT면 사용할 필드===============
