@@ -34,6 +34,7 @@ public class Product extends AuditingFields {
 
     private String title;
     private Long price;
+    private Long cutoffDays; // 특정 출발일 기준 N일전까지 예약 받음
 
     // 이미지 URL들
     @ElementCollection
