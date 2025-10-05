@@ -13,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.OrderBy;
-import jakarta.persistence.OrderColumn;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 
@@ -36,8 +35,8 @@ public class Tour extends AuditingFields{
   private String name;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "city")
-  private CityCode city;
+  @JoinColumn(name = "country")
+  private CountryCode country;
   private Long maxCapacity; // 최대인원[명]
   private Long minCapacity; // 최소출발[명] 
 

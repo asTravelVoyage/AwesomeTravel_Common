@@ -1,4 +1,3 @@
-
 INSERT IGNORE INTO hotel (`is_active`, `id`, `max_room_count`, `price`, `address`, `city`, `description`, `email`, `name`, `number`, `website`, `hotel_type`)
 VALUES
 (1, 1, 30, 200000, '123 Main St', 'SEL', 'Modern and cozy', 'info@hotel6.com', 'Hotel Sunrise', '010-0001-0001', 'www.hotel6.com', 'HOTEL'),

@@ -8,7 +8,7 @@ import renewal.common.entity.CityCode;
 
 public interface CityCodeRepository extends JpaRepository<CityCode, String> {
 
-    List<CityCode> findByCountryCode(String countryCode);
+    List<CityCode> findByCountryCodeCountryCode(String countryCode);
 
 
 }
