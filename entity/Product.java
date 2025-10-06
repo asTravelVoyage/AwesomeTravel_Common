@@ -1,7 +1,9 @@
 package renewal.common.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -48,6 +50,10 @@ public class Product extends AuditingFields {
     // 상품정보
     @ElementCollection
     private List<Info> info = new ArrayList<>();
+
+    // 검색용 키워드들
+    @ElementCollection
+    private Set<String> keywords = new HashSet<>();
 
     // 일정표
 
