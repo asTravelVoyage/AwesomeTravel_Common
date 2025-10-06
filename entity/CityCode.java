@@ -16,8 +16,10 @@ public class CityCode {
     private String airportCode;
 
     private String airportEng;
+    private String airportKor;
     private String cityCode;
     private String cityEng;
+    private String cityKor;
     private Long utcOffsetMins;
 
     @ManyToOne
