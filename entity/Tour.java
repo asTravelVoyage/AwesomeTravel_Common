@@ -2,7 +2,9 @@ package renewal.common.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,6 +16,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.FetchType;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -64,4 +67,7 @@ public class Tour extends AuditingFields{
 
   private Long hotelPriceSum; // 1인당 숙소 가격 합
 
+  // 검색용 키워드들
+  @ElementCollection
+  private Set<String> keywords = new HashSet<>();
 }
