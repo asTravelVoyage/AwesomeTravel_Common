@@ -36,6 +36,7 @@ public class Location {
     @Column(nullable = false)
     private LocationType locationType;
 
+    private String name;
     private String description;
     private String city;
     // @DateTimeFormat(pattern = "yyyy-MM-dd")
