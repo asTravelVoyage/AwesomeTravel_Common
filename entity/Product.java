@@ -7,6 +7,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,6 +30,9 @@ public class Product extends AuditingFields {
     @Column
     private Long id;
     
+    @Enumerated(EnumType.STRING)
+    private ProductType productType; // INDEPENDENT, PACKAGE
+
     @OneToOne(optional = false)
     @JoinColumn(name = "tour_id")
     private Tour tour;
@@ -94,6 +99,10 @@ public class Product extends AuditingFields {
         //                 BigDecimal.valueOf(totalReview),
         //                 2,
         //                 RoundingMode.HALF_UP);
+    }
+
+    public enum ProductType {
+        INDEPENDENT, PACKAGE
     }
 
 }
