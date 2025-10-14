@@ -29,5 +29,13 @@ public class Airline {
     public Airline(String airlineName){
         this.code = airlineName;
     }
+    
+    // 전체 필드 생성자
+    public Airline(String code, String nameKor, String nameEng, boolean infantSeatsRequired){
+        this.code = code;
+        this.nameKor = nameKor;
+        this.nameEng = nameEng;
+        this.infantSeatsRequired = infantSeatsRequired;
+    }
 }
 

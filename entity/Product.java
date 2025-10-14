@@ -42,6 +42,8 @@ public class Product extends AuditingFields {
     private String title;
     private Long price;
     private Long cutoffDays; // 특정 출발일 기준 N일전까지 예약 받음
+    
+    private Boolean isActive = true; // 상품 활성화 여부 (기본값: true)
 
     // 이미지 URL들
     @ElementCollection
@@ -109,6 +111,31 @@ public class Product extends AuditingFields {
 
     public enum ProductType {
         INDEPENDENT, PACKAGE
+    }
+    
+    // Review 통계 메서드
+    public Long getTotalReviews() {
+        return star1 + star2 + star3 + star4 + star5;
+    }
+    
+    public Double getAverageRating() {
+        Long total = getTotalReviews();
+        if (total == 0) return 0.0;
+        return (star1 * 1.0 + star2 * 2.0 + star3 * 3.0 + star4 * 4.0 + star5 * 5.0) / total;
+    }
+    
+    public Double getStarPercentage(int starNumber) {
+        Long total = getTotalReviews();
+        if (total == 0) return 0.0;
+        Long count = 0L;
+        switch (starNumber) {
+            case 1: count = star1; break;
+            case 2: count = star2; break;
+            case 3: count = star3; break;
+            case 4: count = star4; break;
+            case 5: count = star5; break;
+        }
+        return (count * 100.0) / total;
     }
 
 }

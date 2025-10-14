@@ -151,5 +151,43 @@ public class Air extends AuditingFields {
         DIRECT,
         STOP_OVER
     }
+    
+    // Alias getters/setters for backward compatibility with templates
+    public LocalDateTime getDepartDate() {
+        return departDateTime != null ? departDateTime.toLocalDate().atStartOfDay() : null;
+    }
+    
+    public void setDepartDate(LocalDateTime departDate) {
+        this.departDateTime = departDate;
+    }
+    
+    public LocalDateTime getDepartTime() {
+        return departDateTime != null ? departDateTime.toLocalTime().atDate(java.time.LocalDate.now()) : null;
+    }
+    
+    public void setDepartTime(LocalDateTime departTime) {
+        if (departDateTime != null && departTime != null) {
+            this.departDateTime = departDateTime.toLocalDate().atTime(departTime.toLocalTime());
+        }
+    }
+    
+    public LocalDateTime getArriveDate() {
+        return arriveDateTime != null ? arriveDateTime.toLocalDate().atStartOfDay() : null;
+    }
+    
+    public void setArriveDate(LocalDateTime arriveDate) {
+        this.arriveDateTime = arriveDate;
+    }
+    
+    public LocalDateTime getArriveTime() {
+        return arriveDateTime != null ? arriveDateTime.toLocalTime().atDate(java.time.LocalDate.now()) : null;
+    }
+    
+    public void setArriveTime(LocalDateTime arriveTime) {
+        if (arriveDateTime != null && arriveTime != null) {
+            this.arriveDateTime = arriveDateTime.toLocalDate().atTime(arriveTime.toLocalTime());
+        }
+    }
+    
 
 }

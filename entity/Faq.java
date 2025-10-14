@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@lombok.Setter
 @NoArgsConstructor
 public class Faq extends AuditingFields {
     @Id
@@ -21,6 +22,8 @@ public class Faq extends AuditingFields {
     private String answer;
     @Enumerated(EnumType.STRING)
     private FaqCategory category;
+    
+    private Boolean visible = true;
 
     // 생성 메서드
     public Faq(String question, String answer, FaqCategory category) {

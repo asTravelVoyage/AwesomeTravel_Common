@@ -58,6 +58,15 @@ public class Tour extends AuditingFields{
   @OneToOne(mappedBy = "tour", fetch = FetchType.LAZY)
   private Product product;
   
+  // Alias methods
+  public void setProductId(Long productId) {
+      // Product 엔티티 관계로 관리되므로 직접 설정 불필요
+  }
+  
+  public Long getCount() {
+      return maxCapacity;
+  }
+  
   // @OneToMany(mappedBy = "seat_class", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   // private List<AirReservation> airReservations = new ArrayList<>();
 

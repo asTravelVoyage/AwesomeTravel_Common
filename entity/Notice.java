@@ -51,6 +51,11 @@ public class Notice extends AuditingFields {
 
     @Column(nullable = false)
     private boolean isVisible = true;
+    
+    // Alias method for getVisible
+    public boolean getVisible() {
+        return isVisible;
+    }
 
     public Notice(String title, String content, Boolean fix, Integer priority,
             String imageUrl, NoticeCategory category,

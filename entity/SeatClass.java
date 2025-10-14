@@ -64,6 +64,11 @@ public class SeatClass {
     public void increaseAvailableSeats(int cancelCount) {
         availableSeats += cancelCount;
     }
+    
+    // Alias getter for price
+    public Long getPrice() {
+        return priceAdult;
+    }
 
     public enum SeatClassType {
         ECONOMY,

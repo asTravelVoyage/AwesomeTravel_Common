@@ -10,6 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@lombok.NoArgsConstructor
 public class CityCode {
 
     @Id
@@ -25,4 +26,42 @@ public class CityCode {
     @ManyToOne
     @JoinColumn(name = "country_code")
     private CountryCode countryCode;
+    
+    // Alias getters for backward compatibility
+    public String getCode() {
+        return airportCode;
+    }
+    
+    public String getKor() {
+        return cityKor;
+    }
+    
+    public String getEng() {
+        return cityEng;
+    }
+    
+    public CountryCode getCountry() {
+        return countryCode;
+    }
+    
+    // Alias setters
+    public void setKor(String kor) {
+        this.cityKor = kor;
+    }
+    
+    public void setEng(String eng) {
+        this.cityEng = eng;
+    }
+    
+    public void setCountry(CountryCode country) {
+        this.countryCode = country;
+    }
+    
+    // Constructor
+    public CityCode(String country, String code, String kor, String eng) {
+        this.airportCode = code;
+        this.cityKor = kor;
+        this.cityEng = eng;
+        // countryCode는 별도로 설정
+    }
 }
