@@ -1,36 +1,38 @@
 package renewal.common.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Setter
-@lombok.NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class CityCode {
 
-    @Id
-    private String airportCode;
+    
+    // private String airportCode;
 
-    private String airportEng;
-    private String airportKor;
+    // private String airportEng;
+    // private String airportKor;
+    @Id
     private String cityCode;
     private String cityEng;
     private String cityKor;
     private Long utcOffsetMins;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_code")
     private CountryCode countryCode;
     
     // Alias getters for backward compatibility
-    public String getCode() {
-        return airportCode;
-    }
     
     public String getKor() {
         return cityKor;
@@ -57,11 +59,10 @@ public class CityCode {
         this.countryCode = country;
     }
     
-    // Constructor
-    public CityCode(String country, String code, String kor, String eng) {
-        this.airportCode = code;
-        this.cityKor = kor;
-        this.cityEng = eng;
-        // countryCode는 별도로 설정
-    }
+    // // Constructor
+    // public CityCode(String cityCode, String cityEng, String cityKor, Long utcOffsetMins, CountryCode countryCode) {
+    //     this.cityKor = kor;
+    //     this.cityEng = eng;
+    //     // countryCode는 별도로 설정
+    // }
 }

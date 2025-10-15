@@ -45,7 +45,7 @@ public class Air extends AuditingFields {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "depart_airport")
-    private CityCode departAirport;
+    private AirportCode departAirport;
     private String departTerminal;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -58,7 +58,7 @@ public class Air extends AuditingFields {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "arrive_airport")
-    private CityCode arriveAirport;
+    private AirportCode arriveAirport;
     private String arriveTerminal;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
@@ -90,8 +90,8 @@ public class Air extends AuditingFields {
     private List<SeatClass> seatClasses = new ArrayList<>();
 
     // // 공공데이터용 생성자
-    // public Air(String flightNumber, Airline airline, CityCode departAirport, LocalDate departDateTime, LocalTime departTime,
-    //         CityCode arriveAirport, LocalDate arriveDate, LocalTime arriveTime) {
+    // public Air(String flightNumber, Airline airline, AirportCode departAirport, LocalDate departDateTime, LocalTime departTime,
+    //         AirportCode arriveAirport, LocalDate arriveDate, LocalTime arriveTime) {
     //     this.flightNumber = flightNumber;
     //     this.airline = airline;
     //     this.departAirport = departAirport;
@@ -121,7 +121,7 @@ public class Air extends AuditingFields {
 
         @ManyToOne
         @JoinColumn(name = "dep_airport_code")
-        private CityCode departAirport; // 출발공항
+        private AirportCode departAirport; // 출발공항
         private String departTerminal; // 출발터미널
         @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
         private LocalDateTime departDateTime; // 출발날짜시간
@@ -130,7 +130,7 @@ public class Air extends AuditingFields {
         
         @ManyToOne
         @JoinColumn(name = "arr_airport_code")
-        private CityCode arriveAirport; // 도착공항
+        private AirportCode arriveAirport; // 도착공항
         // private String arriveAirport; // 도착공항
         private String arriveTerminal; // 도착터미널
         @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
