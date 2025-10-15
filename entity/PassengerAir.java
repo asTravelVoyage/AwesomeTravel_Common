@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@lombok.Setter
 @NoArgsConstructor
 public class PassengerAir extends PassengerBase {
 
@@ -40,6 +41,20 @@ public class PassengerAir extends PassengerBase {
 
     public void updatePurchaseAir(){
 
+    }
+    
+    // updateInfo 메서드 추가
+    public void updateInfo(renewal.awesome_travel_backoffice.airPurchase.dto.request.AirPassengerUpdateRequestDto updateRequest, CountryCode newCountry, Object unused) {
+        if (updateRequest.getName() != null) this.name = updateRequest.getName();
+        if (updateRequest.getNumber() != null) this.number = updateRequest.getNumber();
+        if (updateRequest.getEmail() != null) this.email = updateRequest.getEmail();
+        if (updateRequest.getBirth() != null) this.birth = updateRequest.getBirth();
+        if (updateRequest.getSex() != null) this.sex = Sex.valueOf(updateRequest.getSex().toLowerCase());
+        if (newCountry != null) this.nationality = newCountry;
+        if (updateRequest.getPassportNum() != null) this.passportNum = updateRequest.getPassportNum();
+        if (updateRequest.getLastName() != null) this.lastName = updateRequest.getLastName();
+        if (updateRequest.getFirstName() != null) this.firstName = updateRequest.getFirstName();
+        if (updateRequest.getExpire() != null) this.expire = updateRequest.getExpire();
     }
 
 }

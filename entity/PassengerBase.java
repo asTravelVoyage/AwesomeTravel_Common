@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Getter
+@lombok.Setter
 @NoArgsConstructor
 @MappedSuperclass
 public abstract class PassengerBase {
@@ -92,6 +93,15 @@ public abstract class PassengerBase {
     }
     public void updateExpire(LocalDate newExpire){
         expire = newExpire;
+    }
+    
+    // Alias getter/setter for passportNum
+    public String getPassport_num() {
+        return passportNum;
+    }
+    
+    public void setPassport_num(String passportNum) {
+        this.passportNum = passportNum;
     }
 
     public enum Sex {
