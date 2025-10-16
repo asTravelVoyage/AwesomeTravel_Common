@@ -1,19 +1,31 @@
 package renewal.common.entity;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @MappedSuperclass
 public abstract class PurchaseBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_purchase_id")
     protected Long id;
 
     @Enumerated(EnumType.STRING)
@@ -24,7 +36,7 @@ public abstract class PurchaseBase {
     protected Long price; // 결제금액
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     protected User user; // 구매자
 
     @Column(nullable = false)
@@ -59,4 +71,6 @@ public abstract class PurchaseBase {
         CANCELLED // 결제 실패 또는 시간 초과
     }
 
+    @OneToMany
+    private List<Passenger> passengers = new ArrayList<>();
 }

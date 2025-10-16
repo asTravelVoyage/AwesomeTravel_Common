@@ -1,16 +1,11 @@
 package renewal.common.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Entity
 @Getter
@@ -19,11 +14,11 @@ import lombok.AllArgsConstructor;
 public class PurchaseProduct extends PurchaseBase {
 
     @ManyToOne
-    @JoinColumn(name = "purchase_target_id", nullable = false)
+    @JoinColumn
     private Product product; //구매상품
 
-    @OneToMany(mappedBy = "productPurchase", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PassengerProduct> productPassengers = new ArrayList<>();
+    // @OneToMany
+    // private List<Passenger> passengers = new ArrayList<>();
     
     private Integer expectedPassengerCount;
     private Boolean isPassengerInfoComplete = false;
@@ -35,9 +30,9 @@ public class PurchaseProduct extends PurchaseBase {
         return this.id;
     }
     
-    public List<PassengerProduct> getPassengerProducts() {
-        return this.productPassengers;
-    }
+    // public List<Passenger> getPassengerProducts() {
+    //     return this.passengers;
+    // }
     
     public Long getMember_id() {
         return this.user != null ? this.user.getId() : null;

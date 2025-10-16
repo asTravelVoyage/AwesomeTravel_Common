@@ -1,24 +1,26 @@
 package renewal.common.entity;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class PurchaseAir extends PurchaseBase {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne
+    @JoinColumn
     private SeatClass seatClass;
-
-    @OneToMany(mappedBy = "airPurchase", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PassengerAir> airPassengers = new ArrayList<>();
+    
+    // @OneToMany
+    // private List<Passenger> passengers = new ArrayList<>();
     
     private Integer expectedPassengerCount;
     private Boolean isPassengerInfoComplete = false;
@@ -46,9 +48,9 @@ public class PurchaseAir extends PurchaseBase {
         return this.id;
     }
     
-    public List<PassengerAir> getPassengerAirs() {
-        return this.airPassengers;
-    }
+    // public List<Passenger> getPassengerAirs() {
+    //     return this.passengers;
+    // }
     
     public Long getMember_id() {
         return this.user != null ? this.user.getId() : null;

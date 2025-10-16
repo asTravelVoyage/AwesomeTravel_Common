@@ -1,56 +1,67 @@
 package renewal.common.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
 @Getter
-@lombok.Setter
+@Setter
 @NoArgsConstructor
-@MappedSuperclass
-public abstract class PassengerBase {
+public class Passenger {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     // 국내 국제 필수 입력값
     @Column(nullable = false)
-    protected String name; // 풀네임 (한국인>한글, 외국인>영문)
+    private String name; // 풀네임 (한국인>한글, 외국인>영문)
 
     @Column(nullable = false)
-    protected String number; // 전화번호
+    private String number; // 전화번호
 
     @Column(nullable = false)
-    protected String email; // 이메일
+    private String email; // 이메일
 
     @Column(nullable = false)
-    protected LocalDate birth; // 생년월일
+    private LocalDate birth; // 생년월일
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    protected Sex sex; // 성별
+    private Sex sex; // 성별
 
     @ManyToOne
     @JoinColumn(name = "nationality_code", nullable = false)
-    protected CountryCode nationality; // 국적 REPUBLIC OF KOREA
+    private CountryCode nationality; // 국적 REPUBLIC OF KOREA
 
     // 국제선
     @Column(nullable = true)
-    protected String passportNum; // 여권번호
+    private String passportNum; // 여권번호
 
     @Column(nullable = true)
-    protected String lastName; // 영문 성
+    private String lastName; // 영문 성
 
     @Column(nullable = true)
-    protected String firstName; // 영문 이름
+    private String firstName; // 영문 이름
 
     @Column(nullable = true)
-    protected LocalDate expire; // 만료일
+    private LocalDate expire; // 만료일
 
-    public PassengerBase(String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality,
+    private String specialRequests; // 특별 요구사항 -> 텍스트로 받아서 직원이 확인
+
+    public Passenger(String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality,
             String passportNum, String lastName, String firstName, LocalDate expire) {
         this.name = name;
         this.number = number;
@@ -108,5 +119,9 @@ public abstract class PassengerBase {
         male,
         female
     }
+
+    // @ManyToOne
+    // @JoinColumn(name = "purchase", nullable = false)
+    // private PurchaseBase purchase;
 
 }
