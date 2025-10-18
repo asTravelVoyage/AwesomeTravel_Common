@@ -20,6 +20,7 @@ import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import renewal.common.entity.SeatClass.SeatClassType;
 
 @Entity
 @Getter
@@ -64,6 +65,11 @@ public class Product extends AuditingFields {
     // 검색용 키워드들
     @ElementCollection
     private Set<String> keywords = new HashSet<>();
+
+    // 대상 항공권등급
+    // @JdbcTypeCode(SqlTypes.JSON)
+    // @Column(columnDefinition = "json")
+    private Set<SeatClassType> seatClassTypes;
 
     // 일정표
 
