@@ -16,10 +16,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-
+import jakarta.persistence.Transient;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -40,9 +40,17 @@ public class Product extends AuditingFields {
     private Tour tour;
 
     private String title;
-    private Long price;
+    private Long price; // 그냥 대표가격[성인기준]임. 실제 가격 조회는 연결된 Tour price* 참조
     private Long cutoffDays; // 특정 출발일 기준 N일전까지 예약 받음
     
+    // 상품조회시 조회된 항공권 가격 저장용 필드 (DB 저장 X)
+    @Transient
+    private Long airPriceAdult;
+    @Transient
+    private Long airPriceYouth;
+    @Transient
+    private Long airPriceInfant;
+
     private Boolean isActive = true; // 상품 활성화 여부 (기본값: true)
 
     // 이미지 URL들
