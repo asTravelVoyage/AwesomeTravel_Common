@@ -6,24 +6,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.OrderBy;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.FetchType;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -49,14 +46,14 @@ public class Tour extends AuditingFields{
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate endDate; // 마지막 출발일
 
-  @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   // @OrderColumn
+  @OneToMany(mappedBy = "tour", fetch = FetchType.LAZY)
   @OrderBy("day ASC")
   private List<Schedule> schedules = new ArrayList<>();
   
-  // 패키지 상품과 연결된 경우
-  @OneToOne(mappedBy = "tour", fetch = FetchType.LAZY)
-  private Product product;
+  // // 패키지 상품과 연결된 경우
+  // @OneToOne(mappedBy = "tour", fetch = FetchType.LAZY)
+  // private Product product;
   
   // Alias methods
   public void setProductId(Long productId) {

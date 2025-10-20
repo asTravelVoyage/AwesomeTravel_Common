@@ -11,6 +11,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,7 +37,7 @@ public class Product extends AuditingFields {
     @Enumerated(EnumType.STRING)
     private ProductType productType; // INDEPENDENT, PACKAGE
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,fetch = FetchType.LAZY)
     @JoinColumn(name = "tour_id")
     private Tour tour;
 

@@ -10,10 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -24,9 +23,9 @@ public class Location {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
-    public void updateSchedule (Schedule newSchedule){
-        schedule = newSchedule;
-    }
+    // public void updateSchedule (Schedule newSchedule){
+    //     schedule = newSchedule;
+    // }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +51,7 @@ public class Location {
     // private String country;
 
     // ==============Type이 HOTEL이면 사용할 필드===============
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
