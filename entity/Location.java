@@ -48,8 +48,11 @@ public class Location {
 
     @Transient
     private SeatClass seatClass; // 상품 조회시 조건에 맞는 SeatClass id를 지정
-    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "depart_airport")
     private AirportCode departAirport;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "arrive_airport")
     private AirportCode arriveAirport;
     // ==============Type이 POINT면 사용할 필드===============
     // private String country;
