@@ -1,6 +1,6 @@
 INSERT IGNORE INTO product 
 (id, tour_id, title, price, cutoff_days, star1, star2, star3, star4, star5, 
- created_at, modified_at, created_by, modified_by, product_type, is_active,depart_time_type, seat_class_types)
+ created_at, modified_at, created_by, modified_by, product_type, is_active,seat_class_types, depart_time_type)
 VALUES
 (1, 1, '서울 시티투어 1일', 55000, 14, 2, 1, 5, 12, 20, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","BUSINESS"]', 'MORNING'),
 (2, 2, '경복궁 & 북촌 한옥마을 투어', 45000, 10, 0, 2, 6, 8, 15, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","PREMIUMECONOMY"]', 'MORNING'),
