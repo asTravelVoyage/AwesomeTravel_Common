@@ -21,6 +21,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +37,7 @@ public class Product extends AuditingFields {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-    
+
     @Enumerated(EnumType.STRING)
     private ProductType productType; // INDEPENDENT, PACKAGE
 
@@ -47,16 +48,19 @@ public class Product extends AuditingFields {
     private String title;
     private Long price; // 그냥 대표가격[성인기준]임. 실제 가격 조회는 연결된 Tour price* 참조
     private Long cutoffDays; // 특정 출발일 기준 N일전까지 예약 받음
-    
-    // 상품조회시 조회된 항공권 가격 저장용 필드 (DB 저장 X)
+
+    // 상품조회시 조회된 항공권,호텔,투어 가격 저장용 필드 (DB 저장 X)
     @Transient
-    private Long airPriceAdult;
+    private Long finalPriceAdult;
     @Transient
-    private Long airPriceYouth;
+    private Long finalPriceYouth;
     @Transient
-    private Long airPriceInfant;
+    private Long finalPriceInfant;
 
     private Boolean isActive = true; // 상품 활성화 여부 (기본값: true)
+
+    @Enumerated(EnumType.STRING)
+    private DepartTimeType departTimeType;
 
     // 이미지 URL들
     @ElementCollection
@@ -122,37 +126,60 @@ public class Product extends AuditingFields {
 
         // Long sum = star1 + star2 * 2 + star3 * 3 + star4 * 4 + star5 * 5;
         // avgerageReview = BigDecimal.valueOf(sum)
-        //         .divide(
-        //                 BigDecimal.valueOf(totalReview),
-        //                 2,
-        //                 RoundingMode.HALF_UP);
+        // .divide(
+        // BigDecimal.valueOf(totalReview),
+        // 2,
+        // RoundingMode.HALF_UP);
     }
 
     public enum ProductType {
         INDEPENDENT, PACKAGE
     }
-    
+
+    @Getter
+    @AllArgsConstructor
+    public enum DepartTimeType {
+        EARLY_MORNING(0, 5),   // 00:00 ~ 05:59
+        MORNING(6, 11),        // 06:00 ~ 11:59
+        AFTERNOON(12, 23);     // 12:00 ~ 23:59
+        
+        private final int startHour;
+        private final int endHour;
+    }
+
     // Review 통계 메서드
     public Long getTotalReviews() {
         return star1 + star2 + star3 + star4 + star5;
     }
-    
+
     public Double getAverageRating() {
         Long total = getTotalReviews();
-        if (total == 0) return 0.0;
+        if (total == 0)
+            return 0.0;
         return (star1 * 1.0 + star2 * 2.0 + star3 * 3.0 + star4 * 4.0 + star5 * 5.0) / total;
     }
-    
+
     public Double getStarPercentage(int starNumber) {
         Long total = getTotalReviews();
-        if (total == 0) return 0.0;
+        if (total == 0)
+            return 0.0;
         Long count = 0L;
         switch (starNumber) {
-            case 1: count = star1; break;
-            case 2: count = star2; break;
-            case 3: count = star3; break;
-            case 4: count = star4; break;
-            case 5: count = star5; break;
+            case 1:
+                count = star1;
+                break;
+            case 2:
+                count = star2;
+                break;
+            case 3:
+                count = star3;
+                break;
+            case 4:
+                count = star4;
+                break;
+            case 5:
+                count = star5;
+                break;
         }
         return (count * 100.0) / total;
     }

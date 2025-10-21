@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,9 +45,12 @@ public class Location {
     // ==============Type이 AIR면 사용할 필드===============
     // @ManyToOne
     // @JoinColumn(name = "seatClass_id")
-    // private SeatClass seatClass;
-    private String departAirport;
-    private String arriveAirport;
+
+    @Transient
+    private SeatClass seatClass; // 상품 조회시 조건에 맞는 SeatClass id를 지정
+    
+    private AirportCode departAirport;
+    private AirportCode arriveAirport;
     // ==============Type이 POINT면 사용할 필드===============
     // private String country;
 
