@@ -3,6 +3,10 @@ package renewal.common.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -35,8 +39,9 @@ public class Schedule{
     // @DateTimeFormat(pattern = "yyyy-MM-dd")
     // private LocalDate date;
 
-    @OneToMany(mappedBy = "schedule", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn
+    @Fetch(FetchMode.SUBSELECT)
     private List<Location> locations = new ArrayList<>();
     
     // // 해당 날짜의 숙소

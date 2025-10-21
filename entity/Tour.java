@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,7 +48,7 @@ public class Tour extends AuditingFields{
   private LocalDate endDate; // 마지막 출발일
 
   // @OrderColumn
-  @OneToMany(mappedBy = "tour", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "tour", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("day ASC")
   private List<Schedule> schedules = new ArrayList<>();
   

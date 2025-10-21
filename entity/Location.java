@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Location {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
     // public void updateSchedule (Schedule newSchedule){
@@ -52,7 +52,7 @@ public class Location {
 
     // ==============Type이 HOTEL이면 사용할 필드===============
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hotel_id")
+    // @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
     public enum LocationType {
