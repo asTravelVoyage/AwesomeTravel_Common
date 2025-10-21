@@ -38,7 +38,7 @@ public class Air extends AuditingFields {
     @Column(nullable = false, unique = true)
     private String flightNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "airline_code", nullable = false)
     private Airline airline;
 
