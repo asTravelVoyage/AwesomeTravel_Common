@@ -1,27 +1,27 @@
 INSERT IGNORE INTO product 
 (id, tour_id, title, price, cutoff_days, star1, star2, star3, star4, star5, 
- created_at, modified_at, created_by, modified_by, product_type, is_active)
+ created_at, modified_at, created_by, modified_by, product_type, is_active, seat_class_types)
 VALUES
-(1, 1, '서울 시티투어 1일', 55000, 14, 2, 1, 5, 12, 20, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(2, 2, '경복궁 & 북촌 한옥마을 투어', 45000, 10, 0, 2, 6, 8, 15, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(3, 3, '부산 야경 크루즈', 60000, 14, 1, 0, 4, 10, 18, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'0'),
-(4, 4, '해운대 해변 자유 여행', 35000, 10, 0, 3, 5, 7, 12, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'0'),
-(5, 5, '제주도 2박3일 패키지', 280000, 14, 3, 4, 6, 15, 30, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'0'),
-(6, 6, '우도 & 성산일출봉 투어', 70000, 10, 1, 1, 3, 8, 20, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(7, 7, '강릉 커피거리 기차여행', 90000, 14, 0, 1, 4, 10, 11, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1'),
-(8, 8, '속초 설악산 당일여행', 80000, 10, 2, 2, 7, 14, 25, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(9, 9, '전주 한옥마을 미식 투어', 50000, 14, 1, 0, 4, 9, 14, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(10, 10, '광주 무등산 하이킹', 40000, 10, 0, 2, 6, 10, 12, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1'),
-(11, 11, '울릉도 3박4일', 320000, 14, 2, 3, 5, 9, 20, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(12, 12, '독도 당일 유람선', 120000, 10, 0, 1, 2, 5, 18, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(13, 13, '경주 불국사 & 석굴암 투어', 60000, 14, 1, 2, 4, 8, 15, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(14, 14, '포항 영일대 해변 야경', 45000, 10, 0, 0, 3, 5, 10, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1'),
-(15, 15, '인천 차이나타운 & 월미도', 35000, 14, 1, 1, 5, 6, 9, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1'),
-(16, 16, '강화도 역사 문화 체험', 75000, 10, 0, 2, 4, 8, 12, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(17, 17, 'DMZ 비무장지대 투어', 65000, 10, 3, 4, 7, 10, 15, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(18, 18, '판문점 평화의집 방문', 120000, 14, 0, 1, 2, 4, 8, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1'),
-(19, 19, '남해 독일마을 & 다랭이 마을', 95000, 10, 0, 0, 4, 7, 9, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1'),
-(20, 20, '거제도 바다전망 드라이브', 70000, 14, 1, 1, 3, 6, 11, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1');
+(1, 1, '서울 시티투어 1일', 55000, 14, 2, 1, 5, 12, 20, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","BUSINESS"]'),
+(2, 2, '경복궁 & 북촌 한옥마을 투어', 45000, 10, 0, 2, 6, 8, 15, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","PREMIUMECONOMY"]'),
+(3, 3, '부산 야경 크루즈', 60000, 14, 1, 0, 4, 10, 18, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'0', '["BUSINESS"]'),
+(4, 4, '해운대 해변 자유 여행', 35000, 10, 0, 3, 5, 7, 12, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'0', '["ECONOMY"]'),
+(5, 5, '제주도 2박3일 패키지', 280000, 14, 3, 4, 6, 15, 30, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'0', '["ECONOMY","PREMIUMECONOMY","BUSINESS"]'),
+(6, 6, '우도 & 성산일출봉 투어', 70000, 10, 1, 1, 3, 8, 20, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","PREMIUMECONOMY"]'),
+(7, 7, '강릉 커피거리 기차여행', 90000, 14, 0, 1, 4, 10, 11, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1', '["ECONOMY","BUSINESS"]'),
+(8, 8, '속초 설악산 당일여행', 80000, 10, 2, 2, 7, 14, 25, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","PREMIUMECONOMY","FIRST"]'),
+(9, 9, '전주 한옥마을 미식 투어', 50000, 14, 1, 0, 4, 9, 14, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","BUSINESS"]'),
+(10, 10, '광주 무등산 하이킹', 40000, 10, 0, 2, 6, 10, 12, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1', '["ECONOMY"]'),
+(11, 11, '울릉도 3박4일', 320000, 14, 2, 3, 5, 9, 20, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","BUSINESS","FIRST"]'),
+(12, 12, '독도 당일 유람선', 120000, 10, 0, 1, 2, 5, 18, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY"]'),
+(13, 13, '경주 불국사 & 석굴암 투어', 60000, 14, 1, 2, 4, 8, 15, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","PREMIUMECONOMY"]'),
+(14, 14, '포항 영일대 해변 야경', 45000, 10, 0, 0, 3, 5, 10, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1', '["ECONOMY"]'),
+(15, 15, '인천 차이나타운 & 월미도', 35000, 14, 1, 1, 5, 6, 9, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1', '["ECONOMY","BUSINESS"]'),
+(16, 16, '강화도 역사 문화 체험', 75000, 10, 0, 2, 4, 8, 12, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","PREMIUMECONOMY"]'),
+(17, 17, 'DMZ 비무장지대 투어', 65000, 10, 3, 4, 7, 10, 15, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","BUSINESS"]'),
+(18, 18, '판문점 평화의집 방문', 120000, 14, 0, 1, 2, 4, 8, NOW(), NOW(), 'test', 'test', 'PACKAGE', b'1', '["ECONOMY","PREMIUMECONOMY"]'),
+(19, 19, '남해 독일마을 & 다랭이 마을', 95000, 10, 0, 0, 4, 7, 9, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1', '["ECONOMY"]'),
+(20, 20, '거제도 바다전망 드라이브', 70000, 14, 1, 1, 3, 6, 11, NOW(), NOW(), 'test', 'test', 'INDEPENDENT', b'1', '["ECONOMY","BUSINESS","PREMIUMECONOMY"]');
 
 INSERT IGNORE INTO product_images (product_id, images) VALUES
 (1, 'https://cdn.example.com/product/1-1.jpg'),
