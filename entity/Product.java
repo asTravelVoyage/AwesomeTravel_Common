@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embeddable;
@@ -70,6 +73,7 @@ public class Product extends AuditingFields {
     // 대상 항공권등급
     // @JdbcTypeCode(SqlTypes.JSON)
     // @Column(columnDefinition = "json")
+    @JdbcTypeCode(SqlTypes.JSON)
     private Set<SeatClassType> seatClassTypes;
 
     // 일정표
