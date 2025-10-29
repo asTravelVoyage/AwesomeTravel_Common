@@ -5,25 +5,27 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import renewal.awesome_travel.user.entity.UserCoupon;
+import renewal.awesome_travel.user.entity.UserLikedProduct;
+import renewal.awesome_travel.user.entity.UserRecentProduct;
 
 @Entity
 @Table(name = "users")
@@ -34,7 +36,7 @@ import lombok.AllArgsConstructor;
 @Builder
 @DynamicInsert
 @DynamicUpdate
-public class User extends AuditingFields{
+public class User extends AuditingFields {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +51,9 @@ public class User extends AuditingFields{
 
     @Column(nullable = false, length = 50)
     private String name;
+
+    @Column
+    private String profileImage;
 
     @Column(length = 20)
     private String phone;
@@ -102,19 +107,37 @@ public class User extends AuditingFields{
 
     // @OneToMany(mappedBy = "user")
     // private List<PurchaseProduct> productPurchases = new ArrayList<>();
-    
+
     @Enumerated(EnumType.STRING)
     private MemberGrade grade;
 
+    // 최근 본 상품
+    @OneToMany(mappedBy = "user")
+    @Builder.Default
+    private List<UserRecentProduct> recentProducts = new ArrayList<>();
+
+    // 찜한 상품
+    @OneToMany(mappedBy = "user")
+    @Builder.Default
+    private List<UserLikedProduct> likedProducts = new ArrayList<>();
+
+    // 보유 쿠폰
+    @OneToMany(mappedBy = "user")
+    @Builder.Default
+    private List<UserCoupon> userCoupons = new ArrayList<>();
+
+    // 보유 포인트
+    private Long point;
+
     // @PrePersist
     // protected void onCreate() {
-    //     this.createdAt = LocalDateTime.now();
-    //     this.status = this.status == null ? UserStatus.ACTIVE : this.status;
+    // this.createdAt = LocalDateTime.now();
+    // this.status = this.status == null ? UserStatus.ACTIVE : this.status;
     // }
 
     // @PreUpdate
     // protected void onUpdate() {
-    //     this.updatedAt = LocalDateTime.now();
+    // this.updatedAt = LocalDateTime.now();
     // }
 
     public enum UserStatus {
@@ -132,29 +155,45 @@ public class User extends AuditingFields{
     public enum MemberGrade {
         BRONZE, SILVER, GOLD, PLATINUM, VIP
     }
-    
+
     // updateUserInfo 메서드
     public void updateUserInfo(String email, String password, String name, LocalDate birthDate,
-                               UserProvider provider, String providerId, UserRole role, UserStatus status,
-                               String passportNumber, LocalDate passportIssuedDate, LocalDate passportExpiryDate,
-                               String passportCountry, String englishFirstName, String englishLastName,
-                               Boolean emailVerified, Boolean marketingConsent) {
-        if (email != null) this.email = email;
-        if (password != null) this.password = password;
-        if (name != null) this.name = name;
-        if (birthDate != null) this.birthDate = birthDate;
-        if (provider != null) this.provider = provider;
-        if (providerId != null) this.providerId = providerId;
-        if (role != null) this.role = role;
-        if (status != null) this.status = status;
-        if (passportNumber != null) this.passportNumber = passportNumber;
-        if (passportIssuedDate != null) this.passportIssuedDate = passportIssuedDate;
-        if (passportExpiryDate != null) this.passportExpiryDate = passportExpiryDate;
-        if (passportCountry != null) this.passportCountry = passportCountry;
-        if (englishFirstName != null) this.englishFirstName = englishFirstName;
-        if (englishLastName != null) this.englishLastName = englishLastName;
-        if (emailVerified != null) this.emailVerified = emailVerified;
-        if (marketingConsent != null) this.marketingConsent = marketingConsent;
+            UserProvider provider, String providerId, UserRole role, UserStatus status,
+            String passportNumber, LocalDate passportIssuedDate, LocalDate passportExpiryDate,
+            String passportCountry, String englishFirstName, String englishLastName,
+            Boolean emailVerified, Boolean marketingConsent) {
+        if (email != null)
+            this.email = email;
+        if (password != null)
+            this.password = password;
+        if (name != null)
+            this.name = name;
+        if (birthDate != null)
+            this.birthDate = birthDate;
+        if (provider != null)
+            this.provider = provider;
+        if (providerId != null)
+            this.providerId = providerId;
+        if (role != null)
+            this.role = role;
+        if (status != null)
+            this.status = status;
+        if (passportNumber != null)
+            this.passportNumber = passportNumber;
+        if (passportIssuedDate != null)
+            this.passportIssuedDate = passportIssuedDate;
+        if (passportExpiryDate != null)
+            this.passportExpiryDate = passportExpiryDate;
+        if (passportCountry != null)
+            this.passportCountry = passportCountry;
+        if (englishFirstName != null)
+            this.englishFirstName = englishFirstName;
+        if (englishLastName != null)
+            this.englishLastName = englishLastName;
+        if (emailVerified != null)
+            this.emailVerified = emailVerified;
+        if (marketingConsent != null)
+            this.marketingConsent = marketingConsent;
     }
 
 }
