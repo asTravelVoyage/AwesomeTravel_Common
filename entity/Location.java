@@ -25,7 +25,7 @@ public class Location {
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
     // public void updateSchedule (Schedule newSchedule){
-    //     schedule = newSchedule;
+    // schedule = newSchedule;
     // }
 
     @Id
@@ -38,7 +38,10 @@ public class Location {
 
     private String name;
     private String description;
-    private String city;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city")
+    private CityCode city;
     // @DateTimeFormat(pattern = "yyyy-MM-dd")
     // private LocalDate date;
 
