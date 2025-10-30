@@ -3,6 +3,7 @@ package renewal.common.entity;
 import java.util.List;
 
 import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
@@ -19,7 +20,8 @@ import lombok.Setter;
 public class MenuCode {
 
     @Id
-    private Long code;
+    @Column(length = 6)
+    private String code;
 
     private String name; // 표시 이름
 
