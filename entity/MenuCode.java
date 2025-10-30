@@ -11,6 +11,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +24,9 @@ public class MenuCode {
     @Id
     @Column(length = 6)
     private String code;
+
+    // thymleaf 렌더용 숫자 코드
+    private Long code2;
 
     private String name; // 표시 이름
 
@@ -41,6 +46,16 @@ public class MenuCode {
 
         public enum TargetColumn {
             ID, COUNTRY, CITY
+        }
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void syncCode2() {
+        if (code != null) {
+            code2 = Long.valueOf(code);
+        } else {
+            code2 = null;
         }
     }
 }

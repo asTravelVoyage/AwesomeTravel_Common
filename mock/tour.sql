@@ -75,7 +75,7 @@ VALUES
 (50, 20, 1);
 
 -- location 테이블 전체 INSERT (AIR 항목 depart_airport/arrive_airport = 한국 공항 코드)
-INSERT IGNORE INTO location (locations_order, id, schedule_id, location_type, name, description, city, depart_airport, arrive_airport, hotel_id) VALUES
+INSERT IGNORE INTO location (locations_order, id, schedule_id, location_type, name, description, city_code, depart_airport, arrive_airport, hotel_id) VALUES
 (0,1,1,'AIR','방콕','AIR activity for Tour1',NULL,'ICN','GMP',NULL),
 (1,2,1,'HOTEL','홍콩 그랜드 호텔','HOTEL activity for Tour1','HKG',NULL,NULL,4),
 (2,3,1,'POINT','에펠탑','POINT activity for Tour1','PAR',NULL,NULL,NULL),

@@ -7,8 +7,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CityCode {
 
-    
     // private String airportCode;
 
     // private String airportEng;
@@ -31,38 +30,5 @@ public class CityCode {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_code")
     private CountryCode countryCode;
-    
-    // Alias getters for backward compatibility
-    
-    public String getKor() {
-        return cityKor;
-    }
-    
-    public String getEng() {
-        return cityEng;
-    }
-    
-    public CountryCode getCountry() {
-        return countryCode;
-    }
-    
-    // Alias setters
-    public void setKor(String kor) {
-        this.cityKor = kor;
-    }
-    
-    public void setEng(String eng) {
-        this.cityEng = eng;
-    }
-    
-    public void setCountry(CountryCode country) {
-        this.countryCode = country;
-    }
-    
-    // // Constructor
-    // public CityCode(String cityCode, String cityEng, String cityKor, Long utcOffsetMins, CountryCode countryCode) {
-    //     this.cityKor = kor;
-    //     this.cityEng = eng;
-    //     // countryCode는 별도로 설정
-    // }
+
 }

@@ -40,8 +40,8 @@ public class Location {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city")
-    private CityCode city;
+    @JoinColumn(name = "city_code")
+    private CityCode cityCode;
     // @DateTimeFormat(pattern = "yyyy-MM-dd")
     // private LocalDate date;
 
