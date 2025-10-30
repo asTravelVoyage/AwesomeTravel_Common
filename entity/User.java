@@ -23,9 +23,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import renewal.awesome_travel.user.entity.UserCoupon;
-import renewal.awesome_travel.user.entity.UserLikedProduct;
-import renewal.awesome_travel.user.entity.UserRecentProduct;
 
 @Entity
 @Table(name = "users")
@@ -112,19 +109,19 @@ public class User extends AuditingFields {
     private MemberGrade grade;
 
     // 최근 본 상품
-    @OneToMany(mappedBy = "user")
-    @Builder.Default
-    private List<UserRecentProduct> recentProducts = new ArrayList<>();
+    // @OneToMany(mappedBy = "user")
+    // @Builder.Default
+    // private List<UserRecentProduct> recentProducts = new ArrayList<>();
 
-    // 찜한 상품
-    @OneToMany(mappedBy = "user")
-    @Builder.Default
-    private List<UserLikedProduct> likedProducts = new ArrayList<>();
+    // // 찜한 상품
+    // @OneToMany(mappedBy = "user")
+    // @Builder.Default
+    // private List<UserLikedProduct> likedProducts = new ArrayList<>();
 
-    // 보유 쿠폰
-    @OneToMany(mappedBy = "user")
-    @Builder.Default
-    private List<UserCoupon> userCoupons = new ArrayList<>();
+    // // 보유 쿠폰
+    // @OneToMany(mappedBy = "user")
+    // @Builder.Default
+    // private List<UserCoupon> userCoupons = new ArrayList<>();
 
     // 보유 포인트
     private Long point;
