@@ -1,0 +1,18 @@
+INSERT IGNORE INTO airline (code, name_kor, name_eng, infant_seats_required, icon_url) VALUES
+('AA', '아메리칸 항공',        'American Airlines',           false, 'icon/AA.ico'),
+('BA', '영국항공',            'British Airways',             false, 'icon/BA.ico'),
+('DL', '델타 항공',           'Delta Air Lines',             false, 'icon/DL.ico'),
+('EK', '에미레이트 항공',     'Emirates',                    false, 'icon/EK.ico'),
+('JL', '일본항공',            'Japan Airlines',              false, 'icon/JL.ico'),
+('AF', '에어프랑스',          'Air France',                  false, 'icon/AF.ico'),
+('LH', '루프트한자',          'Lufthansa',                   false, 'icon/LH.ico'),
+('SQ', '싱가포르항공',        'Singapore Airlines',          false, 'icon/SQ.ico'),
+('CX', '캐세이퍼시픽',        'Cathay Pacific',              false, 'icon/CX.ico'),
+('UA', '유나이티드항공',      'United Airlines',             false, 'icon/UA.ico'),
+('QR', '카타르항공',          'Qatar Airways',               false, 'icon/QR.ico'),
+('EY', '에티하드항공',        'Etihad Airways',              false, 'icon/EY.ico'),
+('QF', '콴타스항공',          'Qantas',                      false, 'icon/QF.ico'),
+('NZ', '에어뉴질랜드',        'Air New Zealand',             false, 'icon/NZ.ico'),
+('AC', '에어캐나다',          'Air Canada',                  false, 'icon/AC.ico'),
+('TK', '터키항공',            'Turkish Airlines',            false, 'icon/TK.ico'),
+('KL', 'KLM 네덜란드항공',    'KLM Royal Dutch Airlines',    false, 'icon/KL.ico');

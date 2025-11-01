@@ -1,6 +1,12 @@
 package renewal.common.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,8 +27,8 @@ public class AirportCode {
 
     @Column
     private String airportKor; // 공항명 (한글)
-    
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_code")
     private CityCode cityCode;
 
@@ -31,19 +37,19 @@ public class AirportCode {
     // private AirportType airportType; // 공항 유형
 
     // public enum AirportType {
-    //     INTERNATIONAL("국제"),
-    //     DOMESTIC("국내"),
-    //     BOTH("국제/국내");
+    // INTERNATIONAL("국제"),
+    // DOMESTIC("국내"),
+    // BOTH("국제/국내");
 
-    //     private final String description;
+    // private final String description;
 
-    //     AirportType(String description) {
-    //         this.description = description;
-    //     }
+    // AirportType(String description) {
+    // this.description = description;
+    // }
 
-    //     public String getDescription() {
-    //         return description;
-    //     }
+    // public String getDescription() {
+    // return description;
+    // }
     // }
 
     public AirportCode(String airportCode, String airportEng, String airportKor, CityCode cityCode) {
