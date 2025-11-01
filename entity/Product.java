@@ -1,5 +1,6 @@
 package renewal.common.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,7 +42,7 @@ public class Product extends AuditingFields {
     @Enumerated(EnumType.STRING)
     private ProductType productType; // INDEPENDENT, PACKAGE
 
-    @OneToOne(optional = false,fetch = FetchType.LAZY)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "tour_id")
     private Tour tour;
 
@@ -56,6 +57,14 @@ public class Product extends AuditingFields {
     private Long finalPriceYouth;
     @Transient
     private Long finalPriceInfant;
+    @Transient
+    private Long availableSeats;
+    @Transient
+    private ProductStatus productStatus;
+    @Transient
+    private LocalDateTime departDateTime;
+    @Transient
+    private LocalDateTime returnDateTime;
 
     private Boolean isActive = true; // 상품 활성화 여부 (기본값: true)
 
@@ -139,12 +148,16 @@ public class Product extends AuditingFields {
     @Getter
     @AllArgsConstructor
     public enum DepartTimeType {
-        EARLY_MORNING(0, 5),   // 00:00 ~ 05:59
-        MORNING(6, 11),        // 06:00 ~ 11:59
-        AFTERNOON(12, 23);     // 12:00 ~ 23:59
-        
+        EARLY_MORNING(0, 5), // 00:00 ~ 05:59
+        MORNING(6, 11), // 06:00 ~ 11:59
+        AFTERNOON(12, 23); // 12:00 ~ 23:59
+
         private final int startHour;
         private final int endHour;
+    }
+
+    public enum ProductStatus {
+        AVAILABLE, RESERVEWAIT
     }
 
     // Review 통계 메서드
