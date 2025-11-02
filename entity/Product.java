@@ -50,6 +50,10 @@ public class Product extends AuditingFields {
     private Long price; // 그냥 대표가격[성인기준]임. 실제 가격 조회는 연결된 Tour price* 참조
     private Long cutoffDays; // 특정 출발일 기준 N일전까지 예약 받음
 
+    // 노옵션, 노쇼핑 여부
+    private boolean noShopping;
+    private boolean noOption;
+
     // 상품조회시 조회된 항공권,호텔,투어 가격 저장용 필드 (DB 저장 X)
     @Transient
     private Long finalPriceAdult;
@@ -74,6 +78,8 @@ public class Product extends AuditingFields {
     // 이미지 URL들
     @ElementCollection
     private List<String> images = new ArrayList<>();
+
+    private String detailImage;
 
     // 상품정보
     @ElementCollection
@@ -156,8 +162,12 @@ public class Product extends AuditingFields {
         private final int endHour;
     }
 
+    // 예약가능, 출발확정, 예약대기, 예약마감
     public enum ProductStatus {
-        AVAILABLE, RESERVEWAIT
+        AVAILABLE,
+        CONFIRMED,
+        WAITING,
+        FINISHED
     }
 
     // Review 통계 메서드
