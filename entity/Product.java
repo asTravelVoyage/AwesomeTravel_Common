@@ -62,7 +62,7 @@ public class Product extends AuditingFields {
     @Transient
     private Long finalPriceInfant;
     @Transient
-    private Long availableSeats;
+    private Long availableSeats; // Tour의 최대인원 - 해당날짜 예약인원 합
     @Transient
     private ProductStatus productStatus;
     @Transient
@@ -79,11 +79,20 @@ public class Product extends AuditingFields {
     @ElementCollection
     private List<String> images = new ArrayList<>();
 
+    // TODO images -> photos로 바꾸고 detailImage -> image로 변경
     private String detailImage;
 
-    // 상품정보
+    // 상품정보 - 포함사항
     @ElementCollection
-    private List<Info> info = new ArrayList<>();
+    private List<Info> include = new ArrayList<>();
+
+    // 상품정보 - 불포함사항
+    @ElementCollection
+    private List<Info> exclude = new ArrayList<>();
+
+    // 상품정보 - 약관 / 사전 작성된 html로 대체
+    // @ElementCollection
+    // private List<Info> term = new ArrayList<>();
 
     // 검색용 키워드들
     @ElementCollection
