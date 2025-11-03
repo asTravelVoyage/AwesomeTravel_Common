@@ -77,10 +77,10 @@ public class Product extends AuditingFields {
 
     // 이미지 URL들
     @ElementCollection
-    private List<String> images = new ArrayList<>();
+    private List<String> photos = new ArrayList<>();
 
-    // TODO images -> photos로 바꾸고 detailImage -> image로 변경
-    private String detailImage;
+    private String thumbnail;
+    private String image;
 
     // 상품정보 - 포함사항
     @ElementCollection

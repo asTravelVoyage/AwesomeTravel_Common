@@ -28,7 +28,7 @@ public class AirportCode {
     @Column
     private String airportKor; // 공항명 (한글)
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_code")
     private CityCode cityCode;
 
