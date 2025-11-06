@@ -30,20 +30,23 @@ public class Passenger {
     private String name; // 풀네임 (한국인>한글, 외국인>영문)
 
     @Column(nullable = false)
-    private String number; // 전화번호
-
-    @Column(nullable = false)
-    private String email; // 이메일
-
-    @Column(nullable = false)
     private LocalDate birth; // 생년월일
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Sex sex; // 성별
 
+    @Column(nullable = false)
+    private String number; // 전화번호
+
+    @Column(nullable = false)
+    private String email; // 이메일
+
+    @Column(nullable = false)
+    private AgeGroup ageGroup; // 연령구분
+
     @ManyToOne
-    @JoinColumn(name = "nationality_code", nullable = false)
+    @JoinColumn(name = "nationality_code", nullable = true)
     private CountryCode nationality; // 국적 REPUBLIC OF KOREA
 
     // 국제선
@@ -75,49 +78,15 @@ public class Passenger {
         this.expire = expire;
     }
 
-    public void updateName(String newName){
-        name = newName;
-    }
-    public void updateNumber(String newNumber){
-        number = newNumber;
-    }
-    public void updateEmail(String newEmail){
-        email = newEmail;
-    }
-    public void updateBirth(LocalDate newBirth){
-        birth = newBirth;
-    }
-    public void updateSex(Sex newSex){
-        sex = newSex;
-    }
-    public void updateNationality(CountryCode newCountryCode){
-        nationality = newCountryCode;
-    }
-    public void updatePassportNum(String newPassportNum){
-        passportNum = newPassportNum;
-    }
-    public void updateLastName(String newLastName){
-        lastName = newLastName;
-    }
-    public void updateFirstName(String newFirstName){
-        firstName = newFirstName;
-    }
-    public void updateExpire(LocalDate newExpire){
-        expire = newExpire;
-    }
-    
-    // Alias getter/setter for passportNum
-    public String getPassport_num() {
-        return passportNum;
-    }
-    
-    public void setPassport_num(String passportNum) {
-        this.passportNum = passportNum;
+    public enum Sex {
+        MALE,
+        FEMALE
     }
 
-    public enum Sex {
-        male,
-        female
+    public enum AgeGroup {
+        INFANT,
+        YOUTH,
+        ADULT
     }
 
     // @ManyToOne

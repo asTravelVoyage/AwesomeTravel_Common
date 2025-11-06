@@ -32,7 +32,7 @@ import renewal.common.entity.SeatClass.SeatClassType;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Product extends AuditingFields {
+public class Product extends AuditingFields implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,14 +61,30 @@ public class Product extends AuditingFields {
     private Long finalPriceYouth;
     @Transient
     private Long finalPriceInfant;
+
     @Transient
-    private Long availableSeats; // Tour의 최대인원 - 해당날짜 예약인원 합
+    private Airline airline;
     @Transient
-    private ProductStatus productStatus;
+    private Long availableSeats; // TODO Tour의 최대인원 - 해당날짜 예약인원 합
+
+    // TODO
+    // 좌석있음 + 여유일 있음 = AVAILABLE
+    // 좌석있음 + 여유일 있음 + 최소출발 인원 달성 = CONFIRMED
+    // 좌석없음 + 여유일 있음 = WAITING
+    // 여유일 없음 = FINISHED
+    @Transient
+    private ProductStatus productStatus = ProductStatus.AVAILABLE;
+
     @Transient
     private LocalDateTime departDateTime;
     @Transient
     private LocalDateTime returnDateTime;
+
+    @Transient
+    private Long bak; // N박 숙박횟수
+
+    @Transient
+    private Long il; // M일
 
     private Boolean isActive = true; // 상품 활성화 여부 (기본값: true)
 
@@ -214,6 +230,11 @@ public class Product extends AuditingFields {
                 break;
         }
         return (count * 100.0) / total;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return (Product) super.clone(); // 얕은 복사 수행
     }
 
 }

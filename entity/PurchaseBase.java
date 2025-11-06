@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -54,23 +55,33 @@ public abstract class PurchaseBase {
     @Column
     protected LocalDateTime paymentDueDate; // 결제기한
 
-    public PurchaseBase(Long price, User user, String name, String number, String email,
-            LocalDateTime purchaseDate, LocalDateTime paymentDueDate) {
-        this.price = price;
-        this.user = user;
-        this.name = name;
-        this.number = number;
-        this.email = email;
-        this.purchaseDate = purchaseDate;
-        this.paymentDueDate = paymentDueDate;
+    @Column
+    protected Boolean isPassengerInfoComplete = false; // 동승자 정보 입력 끝났는지
+
+    @Column
+    protected LocalDateTime passengerInfoDeadline; // 동승자정보 입력 기한
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    protected List<Passenger> passengers = new ArrayList<>();
+
+    public void setPurchaseStatus(PurchaseStatus newStatus) {
+        // 상태가 이미 PAID인데 다시 HOLDING으로 바꾸려는 경우 방지
+        if (this.purchaseStatus == PurchaseStatus.PAID && newStatus == PurchaseStatus.HOLDING) {
+            throw new IllegalStateException("결제 완료된 구매는 HOLDING 상태로 되돌릴 수 없습니다.");
+        }
+        if (this.purchaseStatus == PurchaseStatus.CANCELLED && newStatus != PurchaseStatus.CANCELLED) {
+            throw new IllegalStateException("취소된 구매는 상태를 변경할 수 없습니다.");
+        }
+
+        this.purchaseStatus = newStatus;
     }
 
     public enum PurchaseStatus {
+        RESERVED, // 예약접수
+        CONFIRMED, // 담당자 확인
         HOLDING, // 결제 대기 상태
         PAID, // 결제 완료
         CANCELLED // 결제 실패 또는 시간 초과
     }
 
-    @OneToMany
-    private List<Passenger> passengers = new ArrayList<>();
 }
