@@ -64,6 +64,8 @@ public class Passenger {
 
     private String specialRequests; // 특별 요구사항 -> 텍스트로 받아서 직원이 확인
 
+    private boolean completed = false;
+
     public Passenger(String name, String number, String email, LocalDate birth, Sex sex, CountryCode nationality,
             String passportNum, String lastName, String firstName, LocalDate expire) {
         this.name = name;
@@ -76,6 +78,23 @@ public class Passenger {
         this.lastName = lastName;
         this.firstName = firstName;
         this.expire = expire;
+    }
+
+    public void checkThisPassenger() {
+        // 필수 필드 체크
+        boolean allSet = name != null && !name.isBlank()
+                && number != null && !number.isBlank()
+                && email != null && !email.isBlank()
+                && birth != null
+                && sex != null
+                && ageGroup != null
+                && nationality != null
+                && passportNum != null && !passportNum.isBlank()
+                && lastName != null && !lastName.isBlank()
+                && firstName != null && !firstName.isBlank()
+                && expire != null;
+
+        this.completed = allSet;
     }
 
     public enum Sex {

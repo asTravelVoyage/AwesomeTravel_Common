@@ -40,12 +40,11 @@ public abstract class PurchaseBase {
     @JoinColumn
     protected User user; // 구매자
 
+    // 예약자
     @Column(nullable = false)
     protected String name;
-
     @Column(nullable = false)
     protected String number;
-
     @Column(nullable = false)
     protected String email;
 
