@@ -52,6 +52,9 @@ public abstract class PurchaseBase {
     protected LocalDateTime purchaseDate; // 구매일
 
     @Column
+    protected Boolean isTransactionComplete = false; // 결제 완료되었는지
+
+    @Column
     protected LocalDateTime paymentDueDate; // 결제기한
 
     @Column

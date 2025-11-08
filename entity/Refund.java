@@ -1,11 +1,17 @@
 package renewal.common.entity;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,7 +24,7 @@ public class Refund {
     private Long id;
 
     @Column(nullable = false)
-    private Long purchaseId; // 구매 ID (AirPurchase 또는 ProductPurchase)
+    private Long purchaseId; // 구매 ID (AirPurchase 또는 PurchaseProduct)
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -84,15 +90,14 @@ public class Refund {
     }
 
     public enum RefundStatus {
-        REQUESTED,  // 환불 요청
-        APPROVED,   // 환불 승인
-        REJECTED,   // 환불 거절
-        COMPLETED   // 환불 완료
+        REQUESTED, // 환불 요청
+        APPROVED, // 환불 승인
+        REJECTED, // 환불 거절
+        COMPLETED // 환불 완료
     }
 
     public enum RefundType {
-        AIR,        // 항공권
-        PRODUCT     // 패키지
+        AIR, // 항공권
+        PRODUCT // 패키지
     }
 }
-
