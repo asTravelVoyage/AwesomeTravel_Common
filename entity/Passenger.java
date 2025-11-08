@@ -105,7 +105,15 @@ public class Passenger {
     public enum AgeGroup {
         INFANT,
         YOUTH,
-        ADULT
+        ADULT;
+
+        public String displayName() {
+            return switch (this) {
+                case INFANT -> "유아";
+                case YOUTH -> "청소년";
+                case ADULT -> "성인";
+            };
+        }
     }
 
     // @ManyToOne
