@@ -46,6 +46,10 @@ public class PurchaseProduct extends PurchaseBase {
     @ElementCollection
     private List<ConfirmedSeatClass> finalSeatClasses;
 
+    @ManyToOne
+    @JoinColumn(name = "handler_id")
+    private Handler handler;
+
     @Embeddable
     @NoArgsConstructor
     @Getter
