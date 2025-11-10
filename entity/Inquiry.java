@@ -66,12 +66,30 @@ public class Inquiry extends AuditingFields {
         PRODUCT, // 상품
         REFUND, // 환불
         ACCOUNT, // 계정
-        ETC // 기타
+        ETC; // 기타
+
+        public String displayName() {
+            return switch (this) {
+                case ORDER -> "주문";
+                case PRODUCT -> "상품";
+                case REFUND -> "환불";
+                case ACCOUNT -> "계정";
+                case ETC -> "기타";
+            };
+        }
     }
 
     public enum InquiryStatus {
         PENDING, // 답변 대기
         ANSWERED, // 답변 완료
-        CLOSED // 종료
+        CLOSED; //
+
+        public String displayName() {
+            return switch (this) {
+                case PENDING -> "답변 대기";
+                case ANSWERED -> "답변 완료";
+                case CLOSED -> "종료";
+            };
+        }
     }
 }

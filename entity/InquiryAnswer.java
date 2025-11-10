@@ -2,18 +2,19 @@ package renewal.common.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-
+import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
-public class InquiryAnswer {
-    
+@Setter
+public class InquiryAnswer extends AuditingFields {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,4 +39,3 @@ public class InquiryAnswer {
         this.modifiedAt = LocalDateTime.now();
     }
 }
-
