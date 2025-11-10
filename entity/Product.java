@@ -64,21 +64,40 @@ public class Product extends AuditingFields implements Cloneable {
 
     @Transient
     private Airline airline;
+
+    @Transient
+    private Long reservedSeats;
     @Transient
     private Long availableSeats; // TODO Tour의 최대인원 - 해당날짜 예약인원 합
-
-    // TODO
-    // 좌석있음 + 여유일 있음 = AVAILABLE
-    // 좌석있음 + 여유일 있음 + 최소출발 인원 달성 = CONFIRMED
-    // 좌석없음 + 여유일 있음 = WAITING
-    // 여유일 없음 = FINISHED
-    @Transient
-    private ProductStatus productStatus = ProductStatus.AVAILABLE;
 
     @Transient
     private LocalDateTime departDateTime;
     @Transient
     private LocalDateTime returnDateTime;
+
+    // TODO
+    // 여유일 없음 = FINISHED (예약불가)
+    // 여유일 있음 + 좌석있음 = AVAILABLE (예약가능)
+    // 여유일 있음 + 좌석있음 + 최소출발 인원 달성 = CONFIRMED (출발확정)
+    // 여유일 있음 + 좌석없음 = WAITING (예약대기 신청 가능)
+
+    @Transient
+    private ProductStatus productStatus = ProductStatus.AVAILABLE;
+
+    public void UpdateProductStatus() {
+        if (LocalDateTime.now().isBefore(departDateTime.minusDays(cutoffDays))) {
+            if (availableSeats > 0) {
+                this.productStatus = ProductStatus.AVAILABLE;
+                if (reservedSeats >= tour.getMinCapacity()) {
+                    this.productStatus = ProductStatus.CONFIRMED;
+                }
+            } else {
+                this.productStatus = ProductStatus.WAITING;
+            }
+        } else {
+            this.productStatus = ProductStatus.FINISHED;
+        }
+    }
 
     @Transient
     private Long bak; // N박 숙박횟수

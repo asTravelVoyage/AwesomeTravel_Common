@@ -50,6 +50,8 @@ public class PurchaseProduct extends PurchaseBase {
     @JoinColumn(name = "handler_id")
     private Handler handler;
 
+    private boolean waiting = false; // 예약대기예약인지 여부 기본 false
+
     @Embeddable
     @NoArgsConstructor
     @Getter
