@@ -68,14 +68,13 @@ public class Product extends AuditingFields implements Cloneable {
     @Transient
     private Long reservedSeats;
     @Transient
-    private Long availableSeats; // TODO Tour의 최대인원 - 해당날짜 예약인원 합
+    private Long availableSeats;
 
     @Transient
     private LocalDateTime departDateTime;
     @Transient
     private LocalDateTime returnDateTime;
 
-    // TODO
     // 여유일 없음 = FINISHED (예약불가)
     // 여유일 있음 + 좌석있음 = AVAILABLE (예약가능)
     // 여유일 있음 + 좌석있음 + 최소출발 인원 달성 = CONFIRMED (출발확정)
