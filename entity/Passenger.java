@@ -26,23 +26,23 @@ public class Passenger {
     private Long id;
 
     // 국내 국제 필수 입력값
-    @Column(nullable = false)
+    @Column
     private String name; // 풀네임 (한국인>한글, 외국인>영문)
 
-    @Column(nullable = false)
+    @Column
     private LocalDate birth; // 생년월일
 
-    @Column(nullable = false)
+    @Column
     @Enumerated(EnumType.STRING)
     private Sex sex; // 성별
 
-    @Column(nullable = false)
+    @Column
     private String number; // 전화번호
 
-    @Column(nullable = false)
+    @Column
     private String email; // 이메일
 
-    @Column(nullable = false)
+    @Column
     private AgeGroup ageGroup; // 연령구분
 
     @ManyToOne
