@@ -19,7 +19,9 @@ public class PurchaseAir extends PurchaseBase {
         PurchaseAir purchase = new PurchaseAir();
 
         // 기본 정보
-        purchase.title = "항공권 예약 (" + dto.getSeatClasses().size() + "구간)";
+        purchase.title = "항공권 예약 (" +
+                dto.getSeatClasses().getFirst().getAir().getDepartAirport().getAirportKor() + "->"
+                + dto.getSeatClasses().getLast().getAir().getArriveAirport().getAirportKor() + ")";
         purchase.purchaseStatus = PurchaseStatus.HOLDING;
 
         // 가격 정보
