@@ -8,13 +8,17 @@ import java.util.List;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
@@ -109,14 +113,16 @@ public class User extends AuditingFields {
     private MemberGrade grade;
 
     // 최근 본 상품
-    // @OneToMany(mappedBy = "user")
-    // @Builder.Default
-    // private List<UserRecentProduct> recentProducts = new ArrayList<>();
+    @Builder.Default
+    @ElementCollection
+    @CollectionTable(joinColumns = @JoinColumn(name = "user_id"))
+    private List<RecentViewedItem> recentProducts = new ArrayList<>();
 
-    // // 찜한 상품
-    // @OneToMany(mappedBy = "user")
-    // @Builder.Default
-    // private List<UserLikedProduct> likedProducts = new ArrayList<>();
+    // 찜한 상품
+    @Builder.Default
+    @ElementCollection
+    @CollectionTable(joinColumns = @JoinColumn(name = "user_id"))
+    private List<RecentViewedItem> likedProducts = new ArrayList<>();
 
     // // 보유 쿠폰
     // @OneToMany(mappedBy = "user")
@@ -136,6 +142,16 @@ public class User extends AuditingFields {
     // protected void onUpdate() {
     // this.updatedAt = LocalDateTime.now();
     // }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Embeddable
+    public static class RecentViewedItem {
+        private Long productId;
+        private LocalDateTime viewedAt;
+    }
 
     public enum UserStatus {
         ACTIVE, WITHDRAWN, BANNED
