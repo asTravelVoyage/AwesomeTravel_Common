@@ -152,6 +152,10 @@ public class Product extends AuditingFields implements Cloneable {
 
     // private Long[] stars = new Long[]{0L,0L,0L,0L,0L};
 
+    // 최근 or 찜 상품 표시용
+    @Transient
+    private LocalDateTime viewedAt;
+
     @Embeddable
     @Getter
     @Setter
