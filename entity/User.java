@@ -3,7 +3,9 @@ package renewal.common.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -123,6 +125,12 @@ public class User extends AuditingFields {
     @ElementCollection
     @CollectionTable(joinColumns = @JoinColumn(name = "user_id"))
     private List<RecentViewedItem> likedProducts = new ArrayList<>();
+
+    // 동의한 약관
+    @Builder.Default
+    @ElementCollection
+    @CollectionTable(joinColumns = @JoinColumn(name = "user_id"))
+    private Map<String, Boolean> terms = new HashMap<>();
 
     // // 보유 쿠폰
     // @OneToMany(mappedBy = "user")
