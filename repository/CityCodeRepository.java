@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import renewal.awesome_travel.search.dto.CodeSearchResponse;
 import renewal.common.entity.CityCode;
 
 @Repository
@@ -65,16 +64,4 @@ public interface CityCodeRepository extends JpaRepository<CityCode, String> {
         // OR LOWER(a.airportCode) LIKE LOWER(CONCAT('%', :keyword, '%'))
         // """)
         // List<CodeSearchResponse> searchCode(@Param("keyword") String keyword);
-
-        @Query("""
-                        SELECT new renewal.awesome_travel.search.dto.CodeSearchResponse(
-                        c.cityCode,
-                        c.cityKor,
-                        a.airportCode,
-                        a.airportKor
-                        )
-                        FROM AirportCode a
-                        JOIN a.cityCode c
-                        """)
-        List<CodeSearchResponse> loadAllCodeSearchItems();
 }
