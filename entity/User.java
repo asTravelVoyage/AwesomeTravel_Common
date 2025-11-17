@@ -29,6 +29,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import renewal.awesome_travel.passport.entity.PassportAccessConsent;
 
 @Entity
 @Table(name = "users")
@@ -150,6 +151,10 @@ public class User extends AuditingFields {
     // protected void onUpdate() {
     // this.updatedAt = LocalDateTime.now();
     // }
+
+    @OneToMany(mappedBy = "user")
+    @Builder.Default
+    private List<PassportAccessConsent> travelmates = new ArrayList<>();
 
     @Getter
     @Setter
