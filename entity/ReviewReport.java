@@ -57,7 +57,16 @@ public class ReviewReport {
         SPAM, // 광고/도배
         OFFENSIVE, // 욕설/비방
         ILLEGAL, // 불법정보
-        ETC // 기타
+        ETC; // 기타
+        
+        public String getDisplayName() {
+            return switch (this) {
+                case SPAM -> "광고/도배";
+                case OFFENSIVE -> "욕설/비방";
+                case ILLEGAL -> "불법정보";
+                case ETC -> "기타";
+            };
+        }
     }
 
 }

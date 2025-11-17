@@ -43,7 +43,16 @@ public class Faq extends AuditingFields {
         MEMBER, // 회원
         PAYMENT, // 결제
         RESERVATION, // 예약
-        ETC // 기타
+        ETC; // 기타
+        
+        public String getDisplayName() {
+            return switch (this) {
+                case MEMBER -> "회원";
+                case PAYMENT -> "결제";
+                case RESERVATION -> "예약";
+                case ETC -> "기타";
+            };
+        }
     }
 
 }

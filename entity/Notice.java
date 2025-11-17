@@ -56,6 +56,11 @@ public class Notice extends AuditingFields {
     public boolean getVisible() {
         return isVisible;
     }
+    
+    // Alias method for setVisible
+    public void setVisible(boolean visible) {
+        this.isVisible = visible;
+    }
 
     public Notice(String title, String content, Boolean fix, Integer priority,
             String imageUrl, NoticeCategory category,

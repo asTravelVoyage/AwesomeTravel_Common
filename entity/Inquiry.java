@@ -38,13 +38,31 @@ public class Inquiry extends AuditingFields {
     @Column(nullable = false)
     private InquiryStatus status;
 
-    public static Inquiry create(User user, String title, String content, InquiryCategory category) {
+    private Long productId;
+
+    private Long purchaseId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private InquiryStage stage = InquiryStage.GENERAL;
+
+    public static Inquiry create(
+            User user,
+            String title,
+            String content,
+            InquiryCategory category,
+            Long productId,
+            Long purchaseId,
+            InquiryStage stage) {
         Inquiry i = new Inquiry();
         i.user = user;
         i.title = title;
         i.content = content;
         i.category = category;
         i.status = InquiryStatus.PENDING;
+        i.productId = productId;
+        i.purchaseId = purchaseId;
+        i.stage = stage != null ? stage : InquiryStage.GENERAL;
         return i;
     }
 
@@ -62,20 +80,22 @@ public class Inquiry extends AuditingFields {
     }
 
     public enum InquiryCategory {
-        ORDER, // 주문/결제
-        PRODUCT, // 상품
-        REFUND, // 환불
-        ACCOUNT, // 계정
-        ETC; // 기타
+        ORDER("주문/결제"),
+        REFUND("환불/취소"),
+        ACCOUNT("계정/회원"),
+        BENEFIT("혜택/쿠폰"),
+        SERVICE("서비스 오류"),
+        POLICY("정책/약관"),
+        ETC("기타");
 
         public String displayName() {
-            return switch (this) {
-                case ORDER -> "주문";
-                case PRODUCT -> "상품";
-                case REFUND -> "환불";
-                case ACCOUNT -> "계정";
-                case ETC -> "기타";
-            };
+            return displayName;
+        }
+
+        private final String displayName;
+
+        InquiryCategory(String displayName) {
+            this.displayName = displayName;
         }
     }
 
@@ -90,6 +110,23 @@ public class Inquiry extends AuditingFields {
                 case ANSWERED -> "답변 완료";
                 case CLOSED -> "종료";
             };
+        }
+    }
+
+    public enum InquiryStage {
+        GENERAL("일반 문의"),
+        BEFORE_PURCHASE("구매 전 문의"),
+        AFTER_BOOKING("예약/결제 문의"),
+        AFTER_TRAVEL("이용 후 문의");
+
+        private final String displayName;
+
+        InquiryStage(String displayName) {
+            this.displayName = displayName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
         }
     }
 }
