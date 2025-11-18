@@ -144,7 +144,7 @@ public class User extends AuditingFields {
     }
 
     public enum UserStatus {
-        ACTIVE, WITHDRAWN, BANNED
+        INACTIVE, ACTIVE, WITHDRAWN, BANNED
     }
 
     public enum UserRole {
