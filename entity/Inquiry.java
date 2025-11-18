@@ -46,7 +46,13 @@ public class Inquiry extends AuditingFields {
     @Column(nullable = false)
     private InquiryStage stage = InquiryStage.GENERAL;
 
-    public static Inquiry create(
+    // 기본 생성자
+    public Inquiry() {
+        this.status = InquiryStatus.PENDING;
+    }
+
+    // 생성자
+    public Inquiry(
             User user,
             String title,
             String content,
@@ -54,16 +60,14 @@ public class Inquiry extends AuditingFields {
             Long productId,
             Long purchaseId,
             InquiryStage stage) {
-        Inquiry i = new Inquiry();
-        i.user = user;
-        i.title = title;
-        i.content = content;
-        i.category = category;
-        i.status = InquiryStatus.PENDING;
-        i.productId = productId;
-        i.purchaseId = purchaseId;
-        i.stage = stage != null ? stage : InquiryStage.GENERAL;
-        return i;
+        this.user = user;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.status = InquiryStatus.PENDING;
+        this.productId = productId;
+        this.purchaseId = purchaseId;
+        this.stage = stage != null ? stage : InquiryStage.GENERAL;
     }
 
     public void markAnswered() {

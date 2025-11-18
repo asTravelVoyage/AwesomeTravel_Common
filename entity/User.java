@@ -152,10 +152,6 @@ public class User extends AuditingFields {
     // this.updatedAt = LocalDateTime.now();
     // }
 
-    @OneToMany(mappedBy = "user")
-    @Builder.Default
-    private List<PassportAccessConsent> travelmates = new ArrayList<>();
-
     @Getter
     @Setter
     @AllArgsConstructor
