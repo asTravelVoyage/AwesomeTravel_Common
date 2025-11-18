@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,8 @@ public class Passenger {
 
     // ======== 여권 내용 ================
     @ManyToOne
-    private CountryCode countryCode; // 국적 REPUBLIC OF KOREA
+    @JoinColumn
+    private CountryCode countryCode; // 국가코드
     private String passportNum; // 여권번호
     private String lastName; // 영문 성
     private String firstName; // 영문 이름
