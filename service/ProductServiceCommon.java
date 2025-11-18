@@ -1,17 +1,12 @@
 package renewal.common.service;
 
-import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.Hibernate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import lombok.RequiredArgsConstructor;
 import renewal.common.entity.AirportCode;
@@ -154,11 +149,7 @@ public class ProductServiceCommon {
         return product;
     }
 
-    public ResponseEntity<?> cancelPurchase(
-            @PathVariable Long id,
-            @RequestBody Map<String, Object> dummyload,
-            Principal principal,
-            Model model) {
+    public ResponseEntity<?> cancelPurchase(Long id) {
 
         PurchaseProduct purchaseProduct = purchaseProductRepo.findById(id).get();
         purchaseProduct.setPurchaseStatus(PurchaseStatus.CANCELLED);
