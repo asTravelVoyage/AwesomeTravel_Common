@@ -49,4 +49,6 @@ public interface SeatClassRepository extends JpaRepository<SeatClass, Long> {
                         """)
         List<SeatClass> findAllWithAirInfoByIds(@Param("ids") List<Long> ids);
 
+        Optional<SeatClass> findByAirIdAndClassType(Long airId, SeatClassType classType);
+
 }
