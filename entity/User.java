@@ -48,6 +48,7 @@ public class User extends AuditingFields {
     // 기본 로그인 정보
     @Column(nullable = false, unique = true, length = 100)
     private String email;
+    private boolean emailVerified;
 
     @Column(length = 255)
     private String password; // 소셜 로그인은 null 가능
