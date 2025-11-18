@@ -154,7 +154,7 @@ public class ProductServiceCommon {
         return product;
     }
 
-    ResponseEntity<?> cancelPurchase(
+    public ResponseEntity<?> cancelPurchase(
             @PathVariable Long id,
             @RequestBody Map<String, Object> dummyload,
             Principal principal,
