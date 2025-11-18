@@ -81,25 +81,6 @@ public class User extends AuditingFields {
 
     private LocalDateTime lastLoginAt;
 
-    // 여권 정보 (nullable)
-    @Column(length = 20)
-    private String passportNumber;
-
-    private LocalDate passportIssuedDate;
-    private LocalDate passportExpiryDate;
-
-    @Column(length = 3)
-    private String passportCountry; // 국가코드 (예: KOR)
-
-    @Column(length = 50)
-    private String englishFirstName;
-
-    @Column(length = 50)
-    private String englishLastName;
-
-    private Boolean emailVerified;
-    private Boolean marketingConsent;
-
     @OneToMany(mappedBy = "writer")
     @Builder.Default
     private List<Review> reviewComments = new ArrayList<>();
@@ -199,22 +180,6 @@ public class User extends AuditingFields {
             this.role = role;
         if (status != null)
             this.status = status;
-        if (passportNumber != null)
-            this.passportNumber = passportNumber;
-        if (passportIssuedDate != null)
-            this.passportIssuedDate = passportIssuedDate;
-        if (passportExpiryDate != null)
-            this.passportExpiryDate = passportExpiryDate;
-        if (passportCountry != null)
-            this.passportCountry = passportCountry;
-        if (englishFirstName != null)
-            this.englishFirstName = englishFirstName;
-        if (englishLastName != null)
-            this.englishLastName = englishLastName;
-        if (emailVerified != null)
-            this.emailVerified = emailVerified;
-        if (marketingConsent != null)
-            this.marketingConsent = marketingConsent;
     }
 
 }
