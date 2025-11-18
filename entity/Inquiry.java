@@ -36,7 +36,7 @@ public class Inquiry extends AuditingFields {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private InquiryStatus status;
+    private InquiryStatus status = InquiryStatus.PENDING;
 
     private Long productId;
 
@@ -64,10 +64,9 @@ public class Inquiry extends AuditingFields {
         this.title = title;
         this.content = content;
         this.category = category;
-        this.status = InquiryStatus.PENDING;
         this.productId = productId;
         this.purchaseId = purchaseId;
-        this.stage = InquiryStage.GENERAL;
+        this.stage = stage;
     }
 
     public void markAnswered() {
