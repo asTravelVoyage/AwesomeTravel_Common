@@ -29,7 +29,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import renewal.awesome_travel.passport.entity.PassportAccessConsent;
 
 @Entity
 @Table(name = "users")

@@ -67,7 +67,7 @@ public class Inquiry extends AuditingFields {
         this.status = InquiryStatus.PENDING;
         this.productId = productId;
         this.purchaseId = purchaseId;
-        this.stage = stage != null ? stage : InquiryStage.GENERAL;
+        this.stage = InquiryStage.GENERAL;
     }
 
     public void markAnswered() {
