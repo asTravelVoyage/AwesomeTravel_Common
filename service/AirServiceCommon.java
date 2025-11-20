@@ -2,8 +2,8 @@ package renewal.common.service;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import renewal.common.entity.PurchaseAir;
@@ -20,7 +20,8 @@ public class AirServiceCommon {
     private final PurchaseAirRepository purchaseAirRepo;
     private final SeatClassRepository seatClassRepo;
 
-    public ResponseEntity<?> cancelPurchase(Long id) {
+@Transactional
+public void cancelPurchase(Long id) {
 
         PurchaseAir purchaseAir = purchaseAirRepo.findById(id).orElseThrow();
         purchaseAir.setPurchaseStatus(PurchaseStatus.CANCELLED);
@@ -43,7 +44,7 @@ public class AirServiceCommon {
             seatClassRepo.save(seatClass);
         }
 
-        return ResponseEntity.ok().build();
+        // 완료
     }
 
 }

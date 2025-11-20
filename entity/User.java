@@ -159,28 +159,4 @@ public class User extends AuditingFields {
         BRONZE, SILVER, GOLD, PLATINUM, VIP
     }
 
-    // updateUserInfo 메서드
-    public void updateUserInfo(String email, String password, String name, LocalDate birthDate,
-            UserProvider provider, String providerId, UserRole role, UserStatus status,
-            String passportNumber, LocalDate passportIssuedDate, LocalDate passportExpiryDate,
-            String passportCountry, String englishFirstName, String englishLastName,
-            Boolean emailVerified, Boolean marketingConsent) {
-        if (email != null)
-            this.email = email;
-        if (password != null)
-            this.password = password;
-        if (name != null)
-            this.name = name;
-        if (birthDate != null)
-            this.birthDate = birthDate;
-        if (provider != null)
-            this.provider = provider;
-        if (providerId != null)
-            this.providerId = providerId;
-        if (role != null)
-            this.role = role;
-        if (status != null)
-            this.status = status;
-    }
-
 }

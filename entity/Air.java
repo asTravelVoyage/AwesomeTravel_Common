@@ -75,7 +75,7 @@ public class Air extends AuditingFields {
     private Integer stopovers = 0; // 경유 횟수 (0 = 직항, 1 이상 = 경유)
 
     @ElementCollection
-    private List<FlightSegment> flightSegments;
+    private List<FlightSegment> flightSegments = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import renewal.common.entity.AirportCode;
@@ -149,7 +149,8 @@ public class ProductServiceCommon {
         return product;
     }
 
-    public ResponseEntity<?> cancelPurchase(Long id) {
+@Transactional
+public void cancelPurchase(Long id) {
 
         PurchaseProduct purchaseProduct = purchaseProductRepo.findById(id).get();
         purchaseProduct.setPurchaseStatus(PurchaseStatus.CANCELLED);
@@ -182,6 +183,6 @@ public class ProductServiceCommon {
             }
         }
 
-        return ResponseEntity.ok().build();
+        return;
     }
 }
