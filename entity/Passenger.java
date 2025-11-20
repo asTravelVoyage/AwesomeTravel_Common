@@ -15,7 +15,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "passenger_type")
+@DiscriminatorValue("BASE")
 @Getter
 @Setter
 @NoArgsConstructor

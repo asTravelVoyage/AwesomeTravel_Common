@@ -1,14 +1,20 @@
 package renewal.common.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import renewal.common.entity.PassengerProduct;
 
 @Entity
 @Getter
@@ -35,5 +41,13 @@ public class PurchaseProduct extends PurchaseBase {
     private Handler handler;
 
     private boolean waiting = false; // 예약대기예약인지 여부 기본 false
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(
+            name = "purchase_product_passengers",
+            joinColumns = @JoinColumn(name = "purchase_product_id"),
+            inverseJoinColumns = @JoinColumn(name = "passengers_id")
+    )
+    private List<PassengerProduct> passengers = new ArrayList<>();
 
 }

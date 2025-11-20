@@ -1,10 +1,8 @@
 package renewal.common.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embeddable;
@@ -16,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -75,9 +72,6 @@ public abstract class PurchaseBase {
 
     @Column
     protected LocalDateTime passengerInfoDeadline; // 동승자정보 입력 기한
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    protected List<Passenger> passengers = new ArrayList<>();
 
     @ElementCollection
     private List<ConfirmedSeatClass> finalSeatClasses;
