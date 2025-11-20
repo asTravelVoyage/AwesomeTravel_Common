@@ -36,4 +36,7 @@ public class PurchaseProduct extends PurchaseBase {
 
     private boolean waiting = false; // 예약대기예약인지 여부 기본 false
 
+    private String waiterEmail; // 예약대기자 이메일
+    private String waiterNumber; // 예약대기자 번호
+
 }

@@ -31,6 +31,7 @@ public class ProductServiceCommon {
     private final ProductRepository productRepo;
     private final PurchaseProductRepository purchaseProductRepo;
     private final SeatClassRepository seatClassRepo;
+    private final EmailService emailService;
 
     public Product calcSingleProduct(Product product, LocalDate departDate) {
         // System.out.println("\n=== calcSingleProduct 호출 ===");
@@ -175,7 +176,17 @@ public class ProductServiceCommon {
 
                     candidatePP.setWaiting(false);
                     purchaseProductRepo.save(candidatePP);
+
                     // TODO candidatePP 해당 사용자 알람 보내기
+                    if (candidatePP.getWaiterEmail() != null) {
+                        emailService.sendWaitMail(candidatePP.getWaiterEmail(), candidatePP.getTitle());
+                    } else if (candidatePP.getWaiterNumber() != null) {
+                        System.out.println("=============== [TEST] 문자로 알림 보내는 기능 대체 ===================");
+                        System.out.println("전화번호 : " + candidatePP.getWaiterNumber());
+                        System.out.println("타이틀 : " + candidatePP.getTitle());
+                        System.out.println("=============== [TEST] 문자로 알림 보내는 기능 대체 ===================");
+                    }
+
                 } else {
                     break; // 순번 건너뛰기 방지
                 }
