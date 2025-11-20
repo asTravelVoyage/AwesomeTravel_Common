@@ -156,7 +156,7 @@ public class User extends AuditingFields {
     }
 
     public enum MemberGrade {
-        BRONZE, SILVER, GOLD, PLATINUM, VIP
+        BASIC, GREEN, BLUE, PURPLE, BLACK
     }
 
 }
