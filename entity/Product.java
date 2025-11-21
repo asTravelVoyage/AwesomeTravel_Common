@@ -20,6 +20,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -69,6 +70,9 @@ public class Product extends AuditingFields implements Cloneable {
     private Long reservedSeats;
     @Transient
     private Long availableSeats;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private TimeDeal timeDeal;
 
     @Transient
     private LocalDateTime departDateTime;

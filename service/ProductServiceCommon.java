@@ -19,6 +19,8 @@ import renewal.common.entity.PurchaseBase.PurchaseStatus;
 import renewal.common.entity.PurchaseProduct;
 import renewal.common.entity.Schedule;
 import renewal.common.entity.SeatClass;
+import renewal.common.entity.TimeDeal;
+import renewal.common.entity.TimeDeal.DiscountType;
 import renewal.common.entity.Tour;
 import renewal.common.repository.ProductRepository;
 import renewal.common.repository.PurchaseProductRepository;
@@ -147,6 +149,26 @@ public class ProductServiceCommon {
         product.setReservedSeats(reserved);
         product.setAvailableSeats(product.getTour().getMaxCapacity() - reserved);
 
+        // 타임딜 해당 상품인경우 할인가격 계산
+        TimeDeal timeDeal = product.getTimeDeal();
+        if (timeDeal != null && timeDeal.isActive()) {
+
+            // 기존 가격 저장
+            timeDeal.setOriginalPriceAdult(finalPriceAdult);
+            timeDeal.setOriginalPriceYouth(finalPriceYouth);
+            timeDeal.setOriginalPriceInfant(finalPriceInfant);
+
+            if (timeDeal.getDiscountType() == DiscountType.ABSOLUTE) {
+                product.setFinalPriceAdult(finalPriceAdult - timeDeal.getValue());
+                product.setFinalPriceYouth(finalPriceYouth - timeDeal.getValue());
+                product.setFinalPriceInfant(finalPriceInfant - timeDeal.getValue());
+            } else {
+                product.setFinalPriceAdult(finalPriceAdult * (100 - timeDeal.getValue()) / 100);
+                product.setFinalPriceYouth(finalPriceYouth * (100 - timeDeal.getValue()) / 100);
+                product.setFinalPriceInfant(finalPriceInfant * (100 - timeDeal.getValue()) / 100);
+            }
+        }
+
         return product;
     }
 
@@ -178,7 +200,7 @@ public void cancelPurchase(Long id) {
                     candidatePP.setWaiting(false);
                     purchaseProductRepo.save(candidatePP);
 
-                    // TODO candidatePP 해당 사용자 알람 보내기
+                    // candidatePP 해당 사용자 알람 보내기
                     if (candidatePP.getWaiterEmail() != null) {
                         emailService.sendWaitMail(candidatePP.getWaiterEmail(), candidatePP.getTitle());
                     } else if (candidatePP.getWaiterNumber() != null) {
