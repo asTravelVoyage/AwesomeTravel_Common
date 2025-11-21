@@ -1,23 +1,31 @@
 package renewal.common.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import renewal.awesome_travel.passport.dto.PassportDto;
+import renewal.awesome_travel.product.dto.ReservationRequestDto.PassengerDto;
 import renewal.common.dto.PassengerResponseDto;
 import renewal.common.dto.PassengerUpdateRequestDto;
 import renewal.common.entity.Passenger;
+import renewal.common.entity.PassengerAir;
 import renewal.common.entity.Passenger.AgeGroup;
 import renewal.common.entity.Passenger.Sex;
+import renewal.common.entity.PassengerProduct;
 import renewal.common.repository.CountryCodeRepository;
+import renewal.common.repository.PassengerRepository;
 
 @Service
 @RequiredArgsConstructor
 public class PassengerServiceCommon {
 
     private final CountryCodeRepository countryCodeRepository;
+    private final PassengerRepository passengerRepository;
 
     public void validateRequiredFields(PassengerUpdateRequestDto dto) {
         // 필드 누락 여부와 관계없이 저장은 허용하되,
@@ -104,6 +112,147 @@ public class PassengerServiceCommon {
     public boolean isPassengerInfoComplete(List<? extends Passenger> passengers) {
         return passengers.stream()
                 .allMatch(Passenger::isCompleted);
+    }
+
+    /**
+     * 빈 PassengerAir들을 생성합니다.
+     * 
+     * @param adultCount 성인 인원 수
+     * @param youthCount 청소년 인원 수
+     * @param infantCount 유아 인원 수
+     * @return 생성된 PassengerAir 리스트
+     */
+    @Transactional
+    public List<PassengerAir> createBlankPassengersAir(int adultCount, int youthCount, int infantCount) {
+        List<PassengerAir> passengers = new ArrayList<>();
+
+        for (int i = 0; i < adultCount; i++) {
+            PassengerAir passenger = new PassengerAir();
+            passenger.setAgeGroup(AgeGroup.ADULT);
+            passengers.add((PassengerAir) passengerRepository.save(passenger));
+        }
+
+        for (int i = 0; i < youthCount; i++) {
+            PassengerAir passenger = new PassengerAir();
+            passenger.setAgeGroup(AgeGroup.YOUTH);
+            passengers.add((PassengerAir) passengerRepository.save(passenger));
+        }
+
+        for (int i = 0; i < infantCount; i++) {
+            PassengerAir passenger = new PassengerAir();
+            passenger.setAgeGroup(AgeGroup.INFANT);
+            passengers.add((PassengerAir) passengerRepository.save(passenger));
+        }
+
+        return passengers;
+    }
+
+    /**
+     * 빈 PassengerProduct들을 생성합니다.
+     * 
+     * @param adultCount 성인 인원 수
+     * @param youthCount 청소년 인원 수
+     * @param infantCount 유아 인원 수
+     * @return 생성된 PassengerProduct 리스트
+     */
+    @Transactional
+    public List<PassengerProduct> createBlankPassengersProduct(int adultCount, int youthCount, int infantCount) {
+        List<PassengerProduct> passengers = new ArrayList<>();
+
+        for (int i = 0; i < adultCount; i++) {
+            PassengerProduct passenger = new PassengerProduct();
+            passenger.setAgeGroup(AgeGroup.ADULT);
+            passengers.add((PassengerProduct) passengerRepository.save(passenger));
+        }
+
+        for (int i = 0; i < youthCount; i++) {
+            PassengerProduct passenger = new PassengerProduct();
+            passenger.setAgeGroup(AgeGroup.YOUTH);
+            passengers.add((PassengerProduct) passengerRepository.save(passenger));
+        }
+
+        for (int i = 0; i < infantCount; i++) {
+            PassengerProduct passenger = new PassengerProduct();
+            passenger.setAgeGroup(AgeGroup.INFANT);
+            passengers.add((PassengerProduct) passengerRepository.save(passenger));
+        }
+
+        return passengers;
+    }
+
+    /**
+     * PassengerDto 리스트로부터 PassengerProduct 엔티티 리스트를 생성합니다.
+     * 
+     * @param passengerDtos PassengerDto 리스트
+     * @return 생성된 PassengerProduct 리스트
+     */
+    @Transactional
+    public List<PassengerProduct> createPassengersFromDto(List<PassengerDto> passengerDtos) {
+        List<PassengerProduct> passengers = new ArrayList<>();
+
+        for (PassengerDto dto : passengerDtos) {
+            PassengerProduct passenger = new PassengerProduct();
+            passenger.setLastNameKor(dto.getLastNameKor());
+            passenger.setFirstNameKor(dto.getFirstNameKor());
+            passenger.setBirth(dto.getBirth());
+            passenger.setSex(dto.getGender());
+            passenger.setNumber(dto.getPhone());
+            passenger.setEmail(dto.getEmail());
+            passenger.setAgeGroup(dto.getAgeGroup());
+            passengers.add((PassengerProduct) passengerRepository.save(passenger));
+        }
+
+        return passengers;
+    }
+
+    /**
+     * PassportDto 리스트로 기존 Passenger들을 업데이트합니다.
+     * 
+     * @param passportDtos PassportDto 리스트
+     * @return 업데이트 완료 여부 (모든 Passenger 정보가 완료되었는지)
+     */
+    @Transactional
+    public boolean updatePassengersFromDto(List<PassportDto> passportDtos) {
+        boolean allChecked = true;
+
+        for (PassportDto dto : passportDtos) {
+            Passenger passenger = passengerRepository.findById(dto.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("탑승객 ID가 유효하지 않습니다: " + (dto.getId() != null ? dto.getId() : "null")));
+
+            // 여권정보 업데이트
+            if (!isBlank(dto.getCountryCode())) {
+                passenger.setCountryCode(countryCodeRepository.findByCode(dto.getCountryCode())
+                        .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 국가 코드입니다: " + dto.getCountryCode())));
+            }
+            passenger.setPassportNum(dto.getPassportNum());
+            passenger.setLastName(dto.getLastName());
+            passenger.setFirstName(dto.getFirstName());
+            passenger.setLastNameKor(dto.getLastNameKor());
+            passenger.setFirstNameKor(dto.getFirstNameKor());
+            passenger.setBirth(dto.getBirth());
+            passenger.setSex(dto.getSex());
+
+            passenger.setNationality(dto.getNationality());
+            passenger.setAuthority(dto.getAuthority());
+            passenger.setIssue(dto.getIssue());
+            passenger.setExpire(dto.getExpire());
+
+            // 일반정보 업데이트
+            passenger.setNumber(dto.getNumber());
+            passenger.setEmail(dto.getEmail());
+            passenger.setSpecialRequests(dto.getSpecialRequests());
+            passenger.setAgeGroup(dto.getAgeGroup());
+
+            // 해당 탑승객 정보 완료 여부 체크
+            passenger.checkThisPassenger();
+            if (!passenger.isCompleted()) {
+                allChecked = false;
+            }
+
+            passengerRepository.save(passenger);
+        }
+
+        return allChecked;
     }
 
     public String buildKoreanName(Passenger passenger) {
