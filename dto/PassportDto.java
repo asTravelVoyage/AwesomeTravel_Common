@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import renewal.awesome_travel.passport.entity.Passport;
 import renewal.common.entity.Passenger.AgeGroup;
 import renewal.common.entity.Passenger.Sex;
+import renewal.common.entity.Passport;
 
 @Getter
 @Setter
