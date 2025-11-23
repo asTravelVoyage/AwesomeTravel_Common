@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 
 import renewal.common.entity.Product;
 
@@ -15,5 +16,15 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 
     // Tour → Schedules → Location → CityCode 기준
     List<Product> findDistinctByTour_Schedules_Locations_CityCode_CityCodeIn(Collection<String> cityCodes);
+
+    @Query("""
+                SELECT p
+                FROM Product p
+                WHERE p.timeDeal IS NOT NULL
+                  AND p.timeDeal.startTime <= CURRENT_TIMESTAMP
+                  AND p.timeDeal.endTime   >= CURRENT_TIMESTAMP
+                ORDER BY p.timeDeal.endTime ASC
+            """)
+    List<Product> findActiveTimeDealProducts();
 
 }
