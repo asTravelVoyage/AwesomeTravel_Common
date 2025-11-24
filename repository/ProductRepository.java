@@ -8,23 +8,26 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import renewal.common.entity.Product;
+import renewal.common.entity.TimeDeal;
 
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
-    // Tour → CountryCode 기준
-    List<Product> findAllByTour_Country_CountryCodeIn(Collection<String> countryCodes);
+  // Tour → CountryCode 기준
+  List<Product> findAllByTour_Country_CountryCodeIn(Collection<String> countryCodes);
 
-    // Tour → Schedules → Location → CityCode 기준
-    List<Product> findDistinctByTour_Schedules_Locations_CityCode_CityCodeIn(Collection<String> cityCodes);
+  // Tour → Schedules → Location → CityCode 기준
+  List<Product> findDistinctByTour_Schedules_Locations_CityCode_CityCodeIn(Collection<String> cityCodes);
 
-    @Query("""
-                SELECT p
-                FROM Product p
-                WHERE p.timeDeal IS NOT NULL
-                  AND p.timeDeal.startTime <= CURRENT_TIMESTAMP
-                  AND p.timeDeal.endTime   >= CURRENT_TIMESTAMP
-                ORDER BY p.timeDeal.endTime ASC
-            """)
-    List<Product> findActiveTimeDealProducts();
+  @Query("""
+          SELECT p
+          FROM Product p
+          WHERE p.timeDeal IS NOT NULL
+            AND p.timeDeal.startTime <= CURRENT_TIMESTAMP
+            AND p.timeDeal.endTime   >= CURRENT_TIMESTAMP
+          ORDER BY p.timeDeal.endTime ASC
+      """)
+  List<Product> findActiveTimeDealProducts();
+
+  List<Product> findByTimeDeal(TimeDeal timeDeal);
 
 }
