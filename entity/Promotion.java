@@ -2,8 +2,12 @@ package renewal.common.entity;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
@@ -17,6 +21,7 @@ import lombok.Setter;
 public class Promotion {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title; // 제목
@@ -24,7 +29,9 @@ public class Promotion {
     private String thumnailImg; // 대표이미지
     private String contentImg; // 상세페이지 이미지
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime startTime; // 노출 시작일
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime endTime; // 노출 만료일
 
     @OneToOne(fetch = FetchType.LAZY)
