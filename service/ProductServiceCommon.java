@@ -98,6 +98,10 @@ public class ProductServiceCommon {
                         return null;
                     }
 
+                    if (product.getAirline() == null) {
+                        product.setAirline(finalSeat.getAir().getAirline());
+                    }
+
                     loc.setSeatClass(finalSeat);
 
                     if (product.getDepartDateTime() == null) { // 첫 항공권 출발시간 (=출국시간)
@@ -172,8 +176,8 @@ public class ProductServiceCommon {
         return product;
     }
 
-@Transactional
-public void cancelPurchase(Long id) {
+    @Transactional
+    public void cancelPurchase(Long id) {
 
         PurchaseProduct purchaseProduct = purchaseProductRepo.findById(id).get();
         purchaseProduct.setPurchaseStatus(PurchaseStatus.CANCELLED);
