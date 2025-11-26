@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import renewal.awesome_travel.passport.dto.PassportDto;
-import renewal.awesome_travel.product.dto.ReservationRequestDto.PassengerDto;
 import renewal.common.dto.PassengerResponseDto;
 import renewal.common.dto.PassengerUpdateRequestDto;
+import renewal.common.dto.PassportDto;
+import renewal.common.dto.ReservationRequestDto.PassengerDto;
 import renewal.common.entity.Passenger;
-import renewal.common.entity.PassengerAir;
 import renewal.common.entity.Passenger.AgeGroup;
 import renewal.common.entity.Passenger.Sex;
+import renewal.common.entity.PassengerAir;
 import renewal.common.entity.PassengerProduct;
 import renewal.common.repository.CountryCodeRepository;
 import renewal.common.repository.PassengerRepository;
@@ -117,8 +117,8 @@ public class PassengerServiceCommon {
     /**
      * 빈 PassengerAir들을 생성합니다.
      * 
-     * @param adultCount 성인 인원 수
-     * @param youthCount 청소년 인원 수
+     * @param adultCount  성인 인원 수
+     * @param youthCount  청소년 인원 수
      * @param infantCount 유아 인원 수
      * @return 생성된 PassengerAir 리스트
      */
@@ -150,8 +150,8 @@ public class PassengerServiceCommon {
     /**
      * 빈 PassengerProduct들을 생성합니다.
      * 
-     * @param adultCount 성인 인원 수
-     * @param youthCount 청소년 인원 수
+     * @param adultCount  성인 인원 수
+     * @param youthCount  청소년 인원 수
      * @param infantCount 유아 인원 수
      * @return 생성된 PassengerProduct 리스트
      */
@@ -217,7 +217,8 @@ public class PassengerServiceCommon {
 
         for (PassportDto dto : passportDtos) {
             Passenger passenger = passengerRepository.findById(dto.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("탑승객 ID가 유효하지 않습니다: " + (dto.getId() != null ? dto.getId() : "null")));
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "탑승객 ID가 유효하지 않습니다: " + (dto.getId() != null ? dto.getId() : "null")));
 
             // 여권정보 업데이트
             if (!isBlank(dto.getCountryCode())) {

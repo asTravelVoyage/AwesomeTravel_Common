@@ -1,3 +1,4 @@
+SELECT * FROM air;
 
 -- 자동 랜덤생성기로 대체
 

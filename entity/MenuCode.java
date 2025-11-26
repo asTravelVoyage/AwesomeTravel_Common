@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,7 +32,8 @@ public class MenuCode {
     private String name; // 표시 이름
 
     @ElementCollection
-    @CollectionTable(joinColumns = @JoinColumn(name = "menu_code"))
+    @CollectionTable(joinColumns = @JoinColumn(name = "menu_code"), uniqueConstraints = @UniqueConstraint(columnNames = {
+            "menu_code", "target_column", "value" }))
     private List<MenuCodeDetail> details;
 
     @Embeddable
