@@ -25,6 +25,11 @@ public class Notification {
 
     private LocalDateTime createdAt;
 
+    // Thymeleaf에서 read로 접근하기 위한 getter
+    public boolean isRead() {
+        return isRead;
+    }
+
     public static Notification create(Long userId, String message) {
         Notification notification = new Notification();
         notification.userId = userId;

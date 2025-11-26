@@ -241,7 +241,7 @@ public class PassengerServiceCommon {
             passenger.setNumber(dto.getNumber());
             passenger.setEmail(dto.getEmail());
             passenger.setSpecialRequests(dto.getSpecialRequests());
-            passenger.setAgeGroup(dto.getAgeGroup());
+                passenger.setAgeGroup(dto.getAgeGroup());
 
             // 해당 탑승객 정보 완료 여부 체크
             passenger.checkThisPassenger();
@@ -317,5 +317,3 @@ public class PassengerServiceCommon {
         return value == null ? null : value.trim();
     }
 }
-
-
