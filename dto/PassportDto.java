@@ -43,7 +43,7 @@ public class PassportDto {
         dto.setFirstNameKor(p.getFirstNameKor());
         dto.setBirth(p.getBirth());
         dto.setSex(p.getSex());
-        dto.setCountryCode(p.getCountryCode().getCode());
+        dto.setCountryCode(p.getCountryCode() != null ? p.getCountryCode().getCode() : null);
         dto.setNationality(p.getNationality());
         dto.setAuthority(p.getAuthority());
         dto.setIssue(p.getIssue());

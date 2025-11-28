@@ -30,4 +30,8 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 
   List<Product> findByTimeDeal(TimeDeal timeDeal);
 
+  // 최근 등록 상품 조회 (비로그인 사용자용)
+  @Query("SELECT p FROM Product p ORDER BY p.id DESC")
+  List<Product> findRecentProducts(org.springframework.data.domain.Pageable pageable);
+
 }

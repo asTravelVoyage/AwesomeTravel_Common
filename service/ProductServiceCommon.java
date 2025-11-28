@@ -17,6 +17,7 @@ import renewal.common.entity.Product.DepartTimeType;
 import renewal.common.entity.Product.ProductStatus;
 import renewal.common.entity.PurchaseBase.PurchaseStatus;
 import renewal.common.entity.PurchaseProduct;
+import renewal.common.entity.Refund;
 import renewal.common.entity.Schedule;
 import renewal.common.entity.SeatClass;
 import renewal.common.entity.TimeDeal;
@@ -24,6 +25,7 @@ import renewal.common.entity.TimeDeal.DiscountType;
 import renewal.common.entity.Tour;
 import renewal.common.repository.ProductRepository;
 import renewal.common.repository.PurchaseProductRepository;
+import renewal.common.repository.RefundRepository;
 import renewal.common.repository.SeatClassRepository;
 
 @Service
@@ -33,6 +35,7 @@ public class ProductServiceCommon {
     private final ProductRepository productRepo;
     private final PurchaseProductRepository purchaseProductRepo;
     private final SeatClassRepository seatClassRepo;
+    private final RefundRepository refundRepo;
     private final EmailService emailService;
 
     public Product calcSingleProduct(Product product, LocalDate departDate) {
@@ -51,9 +54,21 @@ public class ProductServiceCommon {
 
         List<Schedule> schedules = tour.getSchedules();
 
+        if (schedules == null || schedules.isEmpty()) {
+            return product;
+        }
+
         for (Schedule sced : schedules) {
+            if (sced == null || sced.getLocations() == null) {
+                continue;
+            }
+
             List<Location> locations = sced.getLocations();
             for (Location loc : locations) {
+                if (loc == null) {
+                    continue;
+                }
+
                 LocationType type = loc.getLocationType();
                 if (type == LocationType.AIR) {
 
@@ -174,6 +189,23 @@ public class ProductServiceCommon {
         }
 
         return product;
+    }
+
+    @Transactional
+    public void requestRefund(Long id, Long amount, String reason) {
+        PurchaseProduct purchaseProduct = purchaseProductRepo.findById(id).orElseThrow();
+        
+        // 이미 환불 요청이 있는지 확인
+        Refund existingRefund = refundRepo.findByPurchaseIdAndRefundType(id, Refund.RefundType.PRODUCT)
+                .orElse(null);
+        
+        if (existingRefund != null && existingRefund.getStatus() == Refund.RefundStatus.REQUESTED) {
+            throw new IllegalStateException("이미 환불 요청이 진행 중입니다.");
+        }
+        
+        // 환불 객체 생성 (REQUESTED 상태)
+        Refund refund = new Refund(purchaseProduct, amount, reason);
+        refundRepo.save(refund);
     }
 
     @Transactional

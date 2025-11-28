@@ -46,6 +46,9 @@ public class Inquiry extends AuditingFields {
     @Column(nullable = false)
     private InquiryStage stage = InquiryStage.GENERAL;
 
+    @Column(nullable = false)
+    private boolean isPrivate = true;
+
     // 기본 생성자
     public Inquiry() {
         this.status = InquiryStatus.PENDING;

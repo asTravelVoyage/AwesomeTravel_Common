@@ -34,7 +34,7 @@ public class Passenger {
     private Long id;
 
     @Column
-    private AgeGroup ageGroup; // 연령구분
+    private AgeGroup ageGroup; // 연령구분 (0: INFANT, 1: YOUTH, 2: ADULT)
 
     // ======== 여권 내용 ================
     @ManyToOne
@@ -62,9 +62,8 @@ public class Passenger {
     private boolean completed = false;
 
     public void checkThisPassenger() {
-        // 필수 필드 체크
-        boolean allSet = countryCode != null
-                && passportNum != null && !passportNum.isBlank()
+        // 필수 필드 체크 (countryCode는 선택 사항이므로 제외)
+        boolean allSet = passportNum != null && !passportNum.isBlank()
                 && lastName != null && !lastName.isBlank()
                 && firstName != null && !firstName.isBlank()
                 && lastNameKor != null && !lastNameKor.isBlank()

@@ -54,13 +54,14 @@ public class PassengerServiceCommon {
             passenger.setSex(null);
         }
 
-        if (!isBlank(dto.getAgeGroup())) {
-            try {
-                passenger.setAgeGroup(AgeGroup.valueOf(dto.getAgeGroup().trim().toUpperCase(Locale.ROOT)));
-            } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("유효하지 않은 연령 구분 값입니다.");
-            }
-        }
+        // ageGroup은 처음 생성 시에만 설정되며, 이후 수정할 수 없습니다.
+        // if (!isBlank(dto.getAgeGroup())) {
+        //     try {
+        //         passenger.setAgeGroup(AgeGroup.valueOf(dto.getAgeGroup().trim().toUpperCase(Locale.ROOT)));
+        //     } catch (IllegalArgumentException e) {
+        //         throw new IllegalArgumentException("유효하지 않은 연령 구분 값입니다.");
+        //     }
+        // }
 
         passenger.setPassportNum(dto.getPassportNum());
         passenger.setLastName(dto.getLastName());
@@ -159,18 +160,21 @@ public class PassengerServiceCommon {
     public List<PassengerProduct> createBlankPassengersProduct(int adultCount, int youthCount, int infantCount) {
         List<PassengerProduct> passengers = new ArrayList<>();
 
+        // 성인 인원수만큼 ADULT로 생성
         for (int i = 0; i < adultCount; i++) {
             PassengerProduct passenger = new PassengerProduct();
             passenger.setAgeGroup(AgeGroup.ADULT);
             passengers.add((PassengerProduct) passengerRepository.save(passenger));
         }
 
+        // 청소년 인원수만큼 YOUTH로 생성
         for (int i = 0; i < youthCount; i++) {
             PassengerProduct passenger = new PassengerProduct();
             passenger.setAgeGroup(AgeGroup.YOUTH);
             passengers.add((PassengerProduct) passengerRepository.save(passenger));
         }
 
+        // 유아 인원수만큼 INFANT로 생성
         for (int i = 0; i < infantCount; i++) {
             PassengerProduct passenger = new PassengerProduct();
             passenger.setAgeGroup(AgeGroup.INFANT);
@@ -221,9 +225,11 @@ public class PassengerServiceCommon {
                             "탑승객 ID가 유효하지 않습니다: " + (dto.getId() != null ? dto.getId() : "null")));
 
             // 여권정보 업데이트
-            if (!isBlank(dto.getCountryCode())) {
-                passenger.setCountryCode(countryCodeRepository.findByCode(dto.getCountryCode())
-                        .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 국가 코드입니다: " + dto.getCountryCode())));
+            // countryCode가 없으면 nationality를 countryCode로 사용
+            String countryCodeValue = !isBlank(dto.getCountryCode()) ? dto.getCountryCode() : dto.getNationality();
+            if (!isBlank(countryCodeValue)) {
+                passenger.setCountryCode(countryCodeRepository.findByCode(countryCodeValue)
+                        .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 국가 코드입니다: " + countryCodeValue)));
             }
             passenger.setPassportNum(dto.getPassportNum());
             passenger.setLastName(dto.getLastName());
@@ -242,7 +248,9 @@ public class PassengerServiceCommon {
             passenger.setNumber(dto.getNumber());
             passenger.setEmail(dto.getEmail());
             passenger.setSpecialRequests(dto.getSpecialRequests());
-                passenger.setAgeGroup(dto.getAgeGroup());
+            
+            // ageGroup은 처음 생성 시에만 설정되며, 이후 수정할 수 없습니다.
+            // passenger.setAgeGroup(dto.getAgeGroup());
 
             // 해당 탑승객 정보 완료 여부 체크
             passenger.checkThisPassenger();
